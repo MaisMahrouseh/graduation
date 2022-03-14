@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateSoldsTable extends Migration
+{
+
+    public function up()
+    {
+        Schema::create('solds', function (Blueprint $table) {
+            $table->id();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+            $table->decimal('new_price');
+            $table->timestamps();
+            $table->softDeletes();
+
+        });
+    }
+
+
+    public function down()
+    {
+        Schema::dropIfExists('solds');
+    }
+}
