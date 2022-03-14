@@ -4,12 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCartTable extends Migration
+class CreateCartsTable extends Migration
 {
 
     public function up()
     {
-        Schema::create('cart', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -18,6 +18,6 @@ class CreateCartTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('cart');
+        Schema::dropIfExists('carts');
     }
 }

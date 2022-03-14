@@ -31,7 +31,7 @@ class ForeginKeys extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->foreignId('product_id')->nullable()->constrained('products', 'id');
         });
-        Schema::table('carts', function (Blueprint $table) {
+        Schema::table('cart', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->foreignId('product_id')->constrained('products', 'id');
         });
