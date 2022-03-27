@@ -4,7 +4,7 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequet extends FormRequest
+class RegisterRequet extends FormRequest
 {
     protected $stopOnFirstFailure = true;
 
@@ -12,11 +12,12 @@ class LoginRequet extends FormRequest
     {
         return true;
     }
+
+ 
     public function rules()
     {
         return [
-            'email' =>['required','email'],
-            'password' =>['required','min:6'],
+            //
         ];
     }
 }

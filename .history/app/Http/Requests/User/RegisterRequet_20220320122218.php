@@ -4,7 +4,7 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequet extends FormRequest
+class RegisterRequet extends FormRequest
 {
     protected $stopOnFirstFailure = true;
 
@@ -12,11 +12,16 @@ class LoginRequet extends FormRequest
     {
         return true;
     }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
     public function rules()
     {
         return [
-            'email' =>['required','email'],
-            'password' =>['required','min:6'],
+            //
         ];
     }
 }

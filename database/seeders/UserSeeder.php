@@ -19,7 +19,6 @@ class UserSeeder extends Seeder
              'password'=>Hash::make('admin'),
              'phone' =>'+963-987654321',
              'is_admin' =>1,
-
             ],
         ]);
     }

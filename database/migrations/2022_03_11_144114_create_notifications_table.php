@@ -13,6 +13,7 @@ class CreateNotificationsTable extends Migration
             $table->string('type');
             $table->timestamps();
             $table->softDeletes();
+            $table->boolean('is_read')->default(0);
         });
     }
 

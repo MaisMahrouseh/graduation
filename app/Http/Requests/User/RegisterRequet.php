@@ -2,29 +2,26 @@
 
 namespace App\Http\Requests\User;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Kouja\ProjectAssistant\Bases\BaseFormRequest;
+use Kouja\ProjectAssistant\Rules\Phone;
 
-class RegisterRequet extends FormRequest
+class RegisterRequet extends BaseFormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+    protected $stopOnFirstFailure = true;
+
     public function authorize()
     {
-        return false;
+        return true;
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+ 
     public function rules()
     {
         return [
-            //
+            'firstname' => ['required', 'string'],
+            'lastname' => ['required', 'string'],
+            'email' =>['required','email','unique:users'],
+            'password' =>['required','min:6'],
+            'phone' => ['required', 'string'],
         ];
     }
 }
