@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
 use App\Http\Requests\User\RegisterRequet;
-use App\Http\Requests\User\LoginRequest;
+use App\Http\Requests\User\LoginRequet;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class AuthController extends Controller
@@ -26,7 +28,7 @@ class AuthController extends Controller
          return ResponseHelper::create($created);
     }
 
-    public function login(LoginRequest $request){
+    public function login(LoginRequet $request){
         $validated = $request->validated();
         if (Auth::attempt($validated)) {
             $user = Auth::user();
@@ -38,8 +40,6 @@ class AuthController extends Controller
 
     public function logout(Request $request){
         try {
-            if (Auth::user()->is_admin == 0)
-                $this->user->softDeleteData(['id' => Auth::id()]);
             $request->user()->token()->revoke();
             return ResponseHelper::operationSuccess();
         } catch (Exception $e) {
