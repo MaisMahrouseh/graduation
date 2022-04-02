@@ -5,7 +5,7 @@ namespace App\Http\Requests\Store;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class EditUniteRequest extends FormRequest
+class DepartmentRequest extends FormRequest
 {
     protected $stopOnFirstFailure = true;
 
@@ -16,7 +16,7 @@ class EditUniteRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string' , Rule::unique('unites')->ignore($this->unite)],
+            'name' => ['required', 'string' , Rule::unique('departments')],
         ];
     }
 }

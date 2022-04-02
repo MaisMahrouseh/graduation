@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Unite;
-use App\Http\Requests\Store\AddUniteRequest;
-use App\Http\Requests\Store\EditUniteRequest;
+use App\Http\Requests\Store\UniteRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
 
 class UniteController extends Controller
@@ -28,16 +27,16 @@ class UniteController extends Controller
     }
 
     //Add unite
-   public function store(AddUniteRequest $request){
+   public function store(UniteRequest $request){
     $validated = $request->validated();
     $created = $this->unite->createData($validated);
     if(!$created)
       return ResponseHelper::creatingFail();
      return ResponseHelper::create($created);
-}  
+  }  
 
  //Edit unite
- public function updateu(EditUniteRequest $request, $id){
+ public function updateu(UniteRequest $request, $id){
     $validated = $request->validated();
     $unite = $this->unite->find($id);
     if (!$unite)
