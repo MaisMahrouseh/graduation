@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Store;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class LoginRequet extends FormRequest
+class EditUniteRequest extends FormRequest
 {
     protected $stopOnFirstFailure = true;
 
@@ -15,8 +16,7 @@ class LoginRequet extends FormRequest
     public function rules()
     {
         return [
-            'email' =>['required','email'],
-            'password' =>['required'],
+            'name' => ['required', 'string' , Rule::unique('unites')->ignore($this->unite)],
         ];
     }
 }
