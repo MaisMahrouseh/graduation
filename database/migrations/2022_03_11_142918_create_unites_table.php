@@ -14,6 +14,8 @@ class CreateUnitesTable extends Migration
             $table->string('name')->unique();
             $table->timestamps();
             $table->softDeletes();
+            $table->unique(['name', 'deleted_at']);
+
         });
     }
 

@@ -16,7 +16,7 @@ class DepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string' , Rule::unique('departments')],
-        ];
+            'name' =>['required','string', Rule::unique('departments')->ignore($this->department)->whereNull('deleted_at')]
+                ];
     }
 }
