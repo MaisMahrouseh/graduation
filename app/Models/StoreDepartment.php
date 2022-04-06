@@ -22,4 +22,15 @@ class StoreDepartment extends BaseModel
         return $this->belongsTo(Department::class);
     }
 
+   public function createStoreDepartments($request){
+        $departments = $request->departments;
+        foreach($departments as $department){
+        $this->create([
+               'department_id' => $department,
+               'store_id' => $request->store_id,
+           ]);
+       }
+       return true;
+   }
+
 }

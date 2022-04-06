@@ -5,7 +5,7 @@ use App\Http\Controllers\Store\UniteController;
 use App\Http\Controllers\Store\DepartmentController;
 use App\Http\Controllers\Store\ProductController;
 use App\Http\Controllers\Store\StoreController;
-
+use App\Http\Controllers\User\ActivityController;
 
 
 Route::post('login', [AuthController::class, 'login']);
@@ -30,6 +30,11 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::post('adddepartment', [DepartmentController::class, 'store']);
     Route::post('addstore', [StoreController::class, 'addStore']);
     Route::Get('mystores', [StoreController::class, 'myStores']);
+    Route::Get('detailsstore/{id?}', [StoreController::class, 'detailsStore']);
+    Route::Get('addstoredepartment', [DepartmentController::class, 'addStoreDepartments']);
+    Route::Delete('deletestoredepartment/{id?}', [DepartmentController::class, 'deleteStoreDepartments']);
+
+
 
 
 

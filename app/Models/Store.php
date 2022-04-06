@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kouja\ProjectAssistant\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\UserStore;
+use App\Models\Department;
+use App\Models\StoreDepartment;
 
 class Store extends BaseModel
 {
@@ -62,7 +64,18 @@ class Store extends BaseModel
             'store_id' => $request->store_id,
         ]); 
     }
-
+    
+    public function getDetails($id){
+      $details =  $this->select('id','name','logo','phone','locationX','locationY')->where('id', $id)
+        ->with(['storedepartments' => function($q){
+            $q ->join('departments', 'departments.id', '=', 'store_departments.department_id')
+               ->select('departments.name','store_id','store_departments.id');
+        }])->get();
+      $departments = Department::select('id','name')
+           ->whereNotIn('id',StoreDepartment::select('department_id')->where('store_id',$id)->get())
+           ->get();
+        return [$details, $departments]; 
+       }
 
 
 
