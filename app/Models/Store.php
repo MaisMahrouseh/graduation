@@ -5,6 +5,7 @@ use Kouja\ProjectAssistant\Bases\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kouja\ProjectAssistant\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\UserStore;
 
 class Store extends BaseModel
 {
@@ -36,6 +37,33 @@ class Store extends BaseModel
     {
         return $this->hasMany(StoreDepartment::class);
     }
+
+    public function addStore($request){
+        $picture = $request->file('logo');
+        if($request->hasFile('logo')){
+            $picturename = rand().'.'.$picture->getClientOriginalExtension();
+            $picture->move(public_path('images/StoreImages'),$picturename);
+            $created = $this->create([
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'locationX' => $request->locationX,
+                'locationY' => $request->locationY,
+                'logo' => $picturename,
+            ]);}
+            return $created;
+    }
+    
+    public function allowAddStore($request){
+        $this->where('id',$request->store_id)->update([
+            'allow' => 1,
+        ]);
+        return UserStore::create([
+            'user_id' => $request->user_id,
+            'store_id' => $request->store_id,
+        ]); 
+    }
+
+
 
 
 }
