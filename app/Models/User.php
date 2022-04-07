@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Kouja\ProjectAssistant\Traits\ModelTrait;
 use Laravel\Passport\HasApiTokens;
+use Carbon\Carbon;
 
 
 
@@ -18,7 +19,7 @@ class User extends Authenticatable
 
     protected $fillable = ['id', 'firstname','lastname','email','phone', 'is_admin','password'];
 
-    protected $hidden = [  'remember_token',];
+    protected $hidden = [ 'remember_token',];
 
     protected $casts = ['email_verified_at' => 'datetime', ];
 
@@ -50,4 +51,21 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make(($value));
     }
+
+
+    public function userProfile(){
+        return  $this->select('id','firstname','lastname','email','phone','created_at as date of join')
+             ->where('id',auth()->user()->id)
+             ->get();
+    }
+    public function editUserProfile($request){
+        return $this->where('id',auth()->user()->id)->update([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
+    }
+
 }
+

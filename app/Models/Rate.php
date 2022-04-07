@@ -22,4 +22,12 @@ class Rate extends BaseModel
         return $this->belongsTo(Store::class);
     }
 
+    public function getMyRates(){
+       return $this->select('user_id','store_id')
+        ->join('stores', 'stores.id', '=', 'rates.store_id')
+             ->select('stores.id','stores.name','stores.logo','rates.rate')
+             ->where('stores.allow',1)
+             ->where('rates.user_id',auth()->user()->id)
+             ->get();
+    }
 }

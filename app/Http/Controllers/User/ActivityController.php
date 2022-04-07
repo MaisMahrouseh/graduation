@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\User;
 use App\Http\Requests\User\FavoriteRequest;
 use App\Http\Requests\User\RateRequest;
+use App\Http\Requests\User\EditProfileRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,7 +60,27 @@ class ActivityController extends Controller
 
     //get user ratings for stores
     public function myRate(){
-        
+        $userRates = $this->rate->getMyRates();
+        if(!$userRates)
+             return ResponseHelper::serverError();
+        return ResponseHelper::select($userRates);
+    }
+
+    //get user profile
+    public function getMyProfile(){
+        $profile = $this->user->userProfile();
+        if(!$profile)
+             return ResponseHelper::serverError();
+        return ResponseHelper::select($profile);
+    }
+
+    //edit user Profile
+    public function editMyProfile(EditProfileRequest $request){
+        $request->validated();
+        $update = $this->user->editUserProfile($request);
+        if(!$update)
+           return ResponseHelper::updatingFail();
+        return ResponseHelper::update($update);
     }
 
 

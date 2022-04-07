@@ -39,7 +39,9 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::post('favorite', [ActivityController::class, 'favorite']);
     Route::get('myfavorite', [ActivityController::class, 'myFavorite']);
     Route::post('rate', [ActivityController::class, 'rate']);
-    Route::post('myrate', [ActivityController::class, 'myRate']);
+    Route::get('myrate', [ActivityController::class, 'myRate']);
+    Route::get('getProfile', [ActivityController::class, 'getMyProfile']);
+    Route::post('editProfile', [ActivityController::class, 'editMyProfile']);
 
 
 
