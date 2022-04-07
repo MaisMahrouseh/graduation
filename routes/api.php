@@ -36,7 +36,10 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::post('editdetailsstore/{id?}', [StoreController::class, 'editDetailsStore']);
 
 
-
+    Route::post('favorite', [ActivityController::class, 'favorite']);
+    Route::get('myfavorite', [ActivityController::class, 'myFavorite']);
+    Route::post('rate', [ActivityController::class, 'rate']);
+    Route::post('myrate', [ActivityController::class, 'myRate']);
 
 
 
