@@ -33,6 +33,7 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::Get('detailsstore/{id?}', [StoreController::class, 'detailsStore']);
     Route::Get('addstoredepartment', [DepartmentController::class, 'addStoreDepartments']);
     Route::Delete('deletestoredepartment/{id?}', [DepartmentController::class, 'deleteStoreDepartments']);
+    Route::post('editdetailsstore/{id?}', [StoreController::class, 'editDetailsStore']);
 
 
 
