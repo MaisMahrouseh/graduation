@@ -30,7 +30,7 @@ class StoreController extends Controller
         $created = $this->store->addStore($request);
         if (!$created)
             return ResponseHelper::creatingFail();
-        return ResponseHelper::operationSuccess($data = "Operation completed successfully, please wait for permission");
+        return ResponseHelper::operationFail($message = "Operation completed successfully, please wait for permission");
     }
 
     //allow to add store by admin
@@ -62,7 +62,7 @@ class StoreController extends Controller
     public function editDetailsStore(AddStoreRequest $request,$id){
         $userStoreId =  $this->userStore->select('user_id')->where('store_id',$id)->get();
         if(auth()->user()->id != $userStoreId->first()->user_id)
-           return ResponseHelper::operationSuccess($data = "You are not the owner of this store");
+           return ResponseHelper::operationFail($message = "You are not the owner of this store");
         $validated = $request->validated();
         $store = $this->store->find($id);
         if (!$store)

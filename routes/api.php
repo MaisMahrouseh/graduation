@@ -42,6 +42,7 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::get('myrate', [ActivityController::class, 'myRate']);
     Route::get('getProfile', [ActivityController::class, 'getMyProfile']);
     Route::post('editProfile', [ActivityController::class, 'editMyProfile']);
+    Route::post('changepassword', [ActivityController::class, 'changePassword']);
 
 
 

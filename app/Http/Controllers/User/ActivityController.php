@@ -10,9 +10,11 @@ use App\Models\Cart;
 use App\Models\User;
 use App\Http\Requests\User\FavoriteRequest;
 use App\Http\Requests\User\RateRequest;
+use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\EditProfileRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ActivityController extends Controller
 {
@@ -81,6 +83,19 @@ class ActivityController extends Controller
         if(!$update)
            return ResponseHelper::updatingFail();
         return ResponseHelper::update($update);
+    }
+
+    //Change the user's password by sending the old password and the new password
+    public function changePassword(ChangePasswordRequest $request){
+        $request->validated();
+        $olaPassword = $this->user->find(auth()->user()->id)->password;
+        if (!Hash::check($request->oldPassword, $olaPassword)) {
+            return ResponseHelper::operationFail($message = "your password is incorrect");
+        }
+        $update = $this->user->editPassword($request);
+        if(!$update)
+        return ResponseHelper::updatingFail();
+     return ResponseHelper::update($update);
     }
 
 

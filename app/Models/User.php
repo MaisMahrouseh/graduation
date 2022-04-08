@@ -67,5 +67,11 @@ class User extends Authenticatable
         ]);
     }
 
+    public function editPassword($request){
+        return $this->where('id',auth()->user()->id)->update([
+            'password' => Hash::make($request->newPassword),
+        ]);
+    }
+
 }
 
