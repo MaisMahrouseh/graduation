@@ -11,6 +11,7 @@ class Unite extends BaseModel
     use HasFactory ,SoftDeletes, ModelTrait;
 
     protected $fillable = ['id', 'name'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at',];
 
     public function productdetails()
     {

@@ -10,7 +10,7 @@ class Sold extends BaseModel
 {
     use HasFactory ,SoftDeletes, ModelTrait;
 
-    protected $fillable = ['id', 'new_price', 'product_detail_id'];
+    protected $fillable = ['id', 'new_price', 'product_detail_id','start_date','end_date'];
 
     protected $dates = ['start_date','end_date'];
 
