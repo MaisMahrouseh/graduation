@@ -38,11 +38,11 @@ class Favorite extends BaseModel
 
     public function getMyFavorite(){
         return $this->select('user_id','store_id')
-        ->join('stores', 'stores.id', '=', 'favorites.store_id')
+             ->join('stores', 'stores.id', '=', 'favorites.store_id')
              ->select('stores.id','stores.name','stores.logo')
              ->where('stores.allow',1)
              ->where('favorites.user_id',auth()->user()->id)
-    ->get();
+             ->get();
     }
 
 

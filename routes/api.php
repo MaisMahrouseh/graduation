@@ -19,7 +19,7 @@ Route::middleware(['auth:api' , 'isAdmin'])->group(function () {
     Route::post('updated/{id?}', [DepartmentController::class, 'updateD']);
     Route::resource('product', ProductController::class);
     Route::post('updatep/{id?}', [ProductController::class, 'updateP']);
-    Route::post('allowaddstore', [StoreController::class, 'allowAddStore']);
+    Route::post('allowaddstore', [StoreController::class, 'allowAddStore']);//notification
 
 
 });
@@ -28,12 +28,22 @@ Route::middleware(['auth:api' , 'isAdmin'])->group(function () {
 Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::Get('alldepartment', [DepartmentController::class, 'index']);
     Route::post('adddepartment', [DepartmentController::class, 'store']);
-    Route::post('addstore', [StoreController::class, 'addStore']);
+    Route::post('addstore', [StoreController::class, 'addStore']);//notification
     Route::Get('mystores', [StoreController::class, 'myStores']);
     Route::Get('detailsstore/{id?}', [StoreController::class, 'detailsStore']);
     Route::Get('addstoredepartment', [DepartmentController::class, 'addStoreDepartments']);
     Route::Delete('deletestoredepartment/{id?}', [DepartmentController::class, 'deleteStoreDepartments']);
     Route::post('editdetailsstore/{id?}', [StoreController::class, 'editDetailsStore']);
+
+    Route::Get('allUnite', [UniteController::class, 'index']);
+    Route::Get('mydepartmentstore/{id?}', [DepartmentController::class, 'myDepartmentStore']);
+    Route::post('addstoreproduct', [StoreController::class, 'addStoreProduct']);
+    Route::post('notexistproduct', [ProductController::class, 'notExistProduct']);//notification
+
+
+    Route::get('allstores', [StoreController::class, 'getAllStores']);
+    Route::get('astore/{id?}', [StoreController::class, 'getStore']);
+    Route::get('getstoredepartmentproducts', [DepartmentController::class, 'storeDepartmentProducts']);
 
 
     Route::post('favorite', [ActivityController::class, 'favorite']);

@@ -77,6 +77,24 @@ class Store extends BaseModel
         return [$details, $departments]; 
        }
 
+    public function getStores(){
+        $stores = $this->select('id', 'name', 'logo')
+            ->where('allow',1)
+            ->get();
+
+        return collect($stores)->each(function ($store) {
+            $store['rate'] = collect($store['rates'])->avg('rate');
+            unset($store['rates']);
+        });
+    } 
+    
+    public function storeInfo($id){
+        return $this->select('name' ,'phone','locationX','locationY','logo')
+        ->where('id', $id)
+        ->where('allow',1)
+        ->get();
+    }
+
 
 
 }

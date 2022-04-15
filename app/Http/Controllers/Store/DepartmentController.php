@@ -8,6 +8,7 @@ use App\Models\Department;
 use App\Models\StoreDepartment;
 use App\Http\Requests\Store\DepartmentRequest;
 use App\Http\Requests\Store\AddStoreDepartmentseRequest;
+use App\Http\Requests\Store\ProductDepartmentRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
 
 class DepartmentController extends Controller
@@ -80,6 +81,22 @@ class DepartmentController extends Controller
     if (!$deleted)
        return ResponseHelper::deletingFail();
      return ResponseHelper::delete();
+  }
+
+  //get  store departments
+  public function myDepartmentStore($id){
+    $departments = $this->storeDepartment->getMyStoreDepartments($id);
+    if(!$departments)
+      return ResponseHelper::serverError();
+    return ResponseHelper::select($departments);
+  }
+
+  //Get department products for the store
+  public function storeDepartmentProducts(ProductDepartmentRequest $request){
+    $products = $this->storeDepartment->getStoreDepartmentProducts($id);
+    if(!$products)
+      return ResponseHelper::serverError();
+    return ResponseHelper::select($products);
   }
 
 

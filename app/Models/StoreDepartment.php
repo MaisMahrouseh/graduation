@@ -33,4 +33,16 @@ class StoreDepartment extends BaseModel
        return true;
    }
 
+   public function getMyStoreDepartments($id){
+       return  $this->select('id','department_id')
+                    ->where('store_id', $id)
+                    ->join('departments', 'departments.id', '=', 'store_departments.department_id')
+                    ->select('departments.name','departments.id')
+                    ->get();
+   }
+
+   public function getStoreDepartment($id){
+ 
+   }
+
 }

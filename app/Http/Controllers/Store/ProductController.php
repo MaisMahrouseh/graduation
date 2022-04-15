@@ -5,16 +5,19 @@ namespace App\Http\Controllers\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\AdminProduct;
 use App\Http\Requests\Store\ProductRequest;
+use App\Http\Requests\Store\NotExistProductRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
 
 class ProductController extends Controller
 {
     public $product;
-
-    public function __construct(Product $product)
+    public $adminProduct;
+    public function __construct(Product $product, AdminProduct $adminProduct)
     {
         $this->product = $product;
+        $this->adminProduct = $adminProduct;
     }
 
     //show all products
@@ -58,5 +61,14 @@ class ProductController extends Controller
    if(!$updated)
        return ResponseHelper::updatingFail();
     return ResponseHelper::update($updated);
+  }
+
+  //Suggestion to add a product that does not exist
+  public function notExistProduct(NotExistProductRequest $request){
+    $validated = $request->validated();
+    $created = $this->adminProduct->createData($validated);
+    if (!$created)
+        return ResponseHelper::creatingFail();
+    return ResponseHelper::operationSuccess($data = "Operation completed successfully, please wait for permission");
   }
 }
