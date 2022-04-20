@@ -91,13 +91,5 @@ class DepartmentController extends Controller
     return ResponseHelper::select($departments);
   }
 
-  //Get department products for the store
-  public function storeDepartmentProducts(ProductDepartmentRequest $request){
-    $products = $this->storeDepartment->getStoreDepartmentProducts($id);
-    if(!$products)
-      return ResponseHelper::serverError();
-    return ResponseHelper::select($products);
-  }
-
 
 }

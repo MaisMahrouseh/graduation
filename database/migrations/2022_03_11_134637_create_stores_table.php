@@ -13,8 +13,8 @@ class CreateStoresTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
-            $table->decimal('locationX');
-            $table->decimal('locationY');
+            $table->double('locationX');
+            $table->double('locationY');
             $table->string('logo');
             $table->boolean('allow')->default(0);
             $table->timestamps();

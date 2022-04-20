@@ -19,4 +19,11 @@ class ProductDepartmentRequest extends FormRequest
             'department_id' =>'required|exists:departments,id',
         ];
     }
+    public function messages()
+    {
+       return [
+        'store_id.exists' => 'Not an existing store ID',
+        'department_id.exists' => 'Not an existing department ID',
+       ];
+    }
 }

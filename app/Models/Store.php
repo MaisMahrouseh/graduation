@@ -95,6 +95,19 @@ class Store extends BaseModel
         ->get();
     }
 
+    public function getSortStoresLocation($request){
+        $stores = $this->select("name","id","logo", \DB::raw("6371 * acos(cos(radians(" . $request->locationX . "))
+        * cos(radians(locationX)) * cos(radians(locationY) - radians(" . $request->locationY . "))
+        + sin(radians(" .$request->locationX. ")) * sin(radians(locationX))) AS distance"))
+        //->having('distance', '<', 1000)
+        ->orderBy('distance')
+        ->where('allow',1)
+        ->get();
+        return collect($stores)->each(function ($store) {
+            $store['rate'] = collect($store['rates'])->avg('rate');
+            unset($store['rates']);
+        });
 
+    }
 
 }

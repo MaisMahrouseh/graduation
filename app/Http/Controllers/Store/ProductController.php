@@ -5,19 +5,27 @@ namespace App\Http\Controllers\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Store;
 use App\Models\AdminProduct;
+use App\Models\StoreProduct;
 use App\Http\Requests\Store\ProductRequest;
+use App\Http\Requests\User\SearchRequest;
 use App\Http\Requests\Store\NotExistProductRequest;
+use App\Http\Requests\Store\ProductDepartmentRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
 
 class ProductController extends Controller
 {
     public $product;
     public $adminProduct;
-    public function __construct(Product $product, AdminProduct $adminProduct)
+    public $store;
+    public $storeProduct;
+    public function __construct(Product $product, AdminProduct $adminProduct , Store $store, StoreProduct $storeProduct)
     {
         $this->product = $product;
         $this->adminProduct = $adminProduct;
+        $this->store = $store;
+        $this->storeProduct = $storeProduct;
     }
 
     //show all products
@@ -70,5 +78,35 @@ class ProductController extends Controller
     if (!$created)
         return ResponseHelper::creatingFail();
     return ResponseHelper::operationSuccess($data = "Operation completed successfully, please wait for permission");
+  }
+
+  //search product
+  public function search(SearchRequest $request){
+    $request->validated();
+    $data = $this->product->select('id','name','image')
+                 ->where("name","LIKE","%{$request->text}%")
+                 ->get();
+     return ResponseHelper::select($data);
+     return ResponseHelper::serverError();
+  }
+
+  //Get all products (product name-unite-price-batch number-description-photo-its department-discount (start date-end date-price))
+  public function myStoreProducts($id){
+    $selectId = $this->store->find($id);
+    if (!$selectId)
+        return ResponseHelper::DataNotFound($message = "invalid store id");
+    $selected = $this->storeProduct->getProducts($id);
+    if ($selected == null)
+        return ResponseHelper::serverError();
+    return ResponseHelper::select($selected);
+  }
+
+  //Get all the products of a specific department for a specific store
+  public function storeDepartmentProducts(ProductDepartmentRequest $request){
+  /*  $request->validated();
+    $products = clone $this->storeProduct->getProducts($request->store_id)->where('department_id',$request->department_id);
+    if(!$products)
+      return ResponseHelper::serverError();
+    return ResponseHelper::select($products);*/
   }
 }

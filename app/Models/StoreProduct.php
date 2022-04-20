@@ -59,4 +59,24 @@ class StoreProduct extends BaseModel
       }
         return true;
     }
+
+    
+    public function getProducts($id){
+        $data =  $this->select('id','store_id', 'department_id', 'product_id')
+        ->where('store_id',$id)
+        ->with(['product' => function($q){
+            $q ->select('id','name','image');}])
+        ->with(['department' => function($q){
+             $q ->select('name','id');}])
+        ->with(['productdetails' => function($q){
+            $q ->join('unites', 'unites.id', '=', 'product_details.unite_id')
+               ->leftJoin('solds', 'solds.product_detail_id', '=', 'product_details.id')
+               ->select('price','store_product_id','batch_number','describe','unites.name as unite',
+               'solds.new_price as discount Price','solds.start_date as discount start date','solds.end_date as discount end date')
+            ;}])    
+        ->get();
+        return collect($data)->each(function ($dat) {
+            unset($dat['store_id'],$dat['department_id'],$dat['product_id']);
+        });
+    }
 }

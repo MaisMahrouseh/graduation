@@ -11,7 +11,9 @@ use App\Models\StoreProduct;
 use App\Http\Requests\Store\AddStoreRequest;
 use App\Http\Requests\Store\AllowAddStoreRequest;
 use App\Http\Requests\Store\StoreProductRequest;
+use App\Http\Requests\Store\SortLocationRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
+use Illuminate\Support\Facades\DB;
 
 class StoreController extends Controller
 {
@@ -101,4 +103,30 @@ class StoreController extends Controller
           return ResponseHelper::serverError();
         return ResponseHelper::select($stores);
     }
+
+    //Sorting stores according to the nearest store, starting from a specific point
+    public function sortStoresLocation(SortLocationRequest $request){
+        $request->validated();
+        $stores = $this->store->getSortStoresLocation($request);
+        if(!$stores)
+          return ResponseHelper::serverError();
+        return ResponseHelper::select($stores);
+    }
+
+    //Sort stores by alphabet
+    public function sortStoresName(){
+        $stores = clone $this->store->getStores()->sortBy('name');
+        if(!$stores)
+          return ResponseHelper::serverError();
+        return ResponseHelper::select($stores);
+    }
+
+    //Sort stores according to the highest rating 
+    public function sortStoresRate(){
+        $stores = clone $this->store->getStores()->sortByDesc('rate');
+        if(!$stores)
+          return ResponseHelper::serverError();
+        return ResponseHelper::select($stores);
+    }
+  
 }

@@ -40,9 +40,4 @@ class StoreDepartment extends BaseModel
                     ->select('departments.name','departments.id')
                     ->get();
    }
-
-   public function getStoreDepartment($id){
- 
-   }
-
 }
