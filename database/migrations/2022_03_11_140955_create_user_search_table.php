@@ -9,7 +9,7 @@ class CreateUserSearchTable extends Migration
 
     public function up()
     {
-        Schema::create('user_searchs', function (Blueprint $table) {
+        Schema::create('user_searches', function (Blueprint $table) {
             $table->id();
             $table->string('text');
             $table->timestamps();
@@ -21,6 +21,6 @@ class CreateUserSearchTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('user_searchs');
+        Schema::dropIfExists('user_searches');
     }
 }
