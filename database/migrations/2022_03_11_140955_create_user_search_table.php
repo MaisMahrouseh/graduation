@@ -21,6 +21,6 @@ class CreateUserSearchTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('user_search');
+        Schema::dropIfExists('user_searchs');
     }
 }

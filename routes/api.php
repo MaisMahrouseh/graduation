@@ -69,7 +69,6 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     
 });
 
-//
 Route::get('migrate', function(){
     Artisan::call("migrate:fresh --seed");
     Artisan::call("passport:install");
