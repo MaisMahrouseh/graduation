@@ -8,10 +8,12 @@ use App\Models\Favorite;
 use App\Models\Rate;
 use App\Models\Cart;
 use App\Models\User;
+use App\Models\UserSearch;
 use App\Http\Requests\User\FavoriteRequest;
 use App\Http\Requests\User\RateRequest;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\EditProfileRequest;
+use App\Http\Requests\User\SearchRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -22,12 +24,14 @@ class ActivityController extends Controller
     public $rate;
     public $cart;
     public $user;
-    public function __construct(Favorite $favorite , Rate $rate ,Cart $cart , User $user)
+    public $userSearch;
+    public function __construct(Favorite $favorite , Rate $rate ,Cart $cart , User $user,UserSearch $userSearch)
     {
         $this->favorite = $favorite;
         $this->rate = $rate;
         $this->cart = $cart; 
         $this->user = $user; 
+        $this->userSearch = $userSearch;
     }
 
     //Add or remove a store to my favourites
@@ -96,6 +100,31 @@ class ActivityController extends Controller
         if(!$update)
         return ResponseHelper::updatingFail();
      return ResponseHelper::update($update);
+    }
+
+    public function storingSearchUser(SearchRequest $request){
+        $request->validated();
+        $created = $this->userSearch->create([
+            'text' => $request->text,
+            'user_id' => auth()->user()->id,
+        ]);
+        if(!$created)
+        return ResponseHelper::creatingFail();
+      return ResponseHelper::create($created);
+    }
+
+    public function recentSearchResults(){
+        $recent = $this->userSearch->getRecentSearchResults();
+        if(!$recent)
+             return ResponseHelper::serverError();
+        return ResponseHelper::select($recent);
+    }
+
+    public function mostSearched(){
+        $recent = $this->userSearch->getmostSearched();
+        if(!$recent)
+             return ResponseHelper::serverError();
+        return ResponseHelper::select($recent);
     }
 
 

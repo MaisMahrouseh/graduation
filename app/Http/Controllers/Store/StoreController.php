@@ -8,6 +8,7 @@ use App\Models\Store;
 use App\Models\UserStore;
 use App\Models\StoreDepartment;
 use App\Models\StoreProduct;
+use App\Models\Product;
 use App\Http\Requests\Store\AddStoreRequest;
 use App\Http\Requests\Store\StoreProductRequest;
 use App\Http\Requests\Store\SortLocationRequest;
@@ -174,6 +175,17 @@ class StoreController extends Controller
         if(!$stores)
           return ResponseHelper::serverError();
         return ResponseHelper::select($stores);
+    }
+
+    //Get لeneral stores containing this product
+    public function generalProductStores($id){
+      $selectId = Product::find($id);
+      if (!$selectId)
+          return ResponseHelper::DataNotFound($message = "invalid Product id");
+      $products = $this->storeProduct->generalStores($id);
+      if(!$products)
+        return ResponseHelper::serverError();
+      return ResponseHelper::select($products);
     }
   
 }

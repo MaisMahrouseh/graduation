@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\StoreDepartment;
+use App\Models\StoreProduct;
 use App\Http\Requests\Store\DepartmentRequest;
 use App\Http\Requests\Store\AddStoreDepartmentseRequest;
 use App\Http\Requests\Store\ProductDepartmentRequest;
@@ -15,10 +16,12 @@ class DepartmentController extends Controller
 {
     public $department;
     public $storeDepartment;
-    public function __construct(Department $department , StoreDepartment $storeDepartment)
+    public $storeProduct;
+    public function __construct(Department $department , StoreDepartment $storeDepartment, StoreProduct $storeProduct)
     {
         $this->department = $department;
         $this->storeDepartment = $storeDepartment;
+        $this->storeProduct = $storeProduct;
     }
 
     //show all departments
@@ -91,5 +94,14 @@ class DepartmentController extends Controller
     return ResponseHelper::select($departments);
   }
 
-
+  //Get generic products for this department
+  public function generalDepartmentProducts($id){
+    $selectId = $this->department->find($id);
+    if (!$selectId)
+        return ResponseHelper::DataNotFound($message = "invalid department id");
+    $products = $this->storeProduct->generalProduct($id);
+    if(!$products)
+      return ResponseHelper::serverError();
+    return ResponseHelper::select($products);
+  }
 }

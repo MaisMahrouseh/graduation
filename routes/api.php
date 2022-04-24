@@ -59,16 +59,19 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::post('editProfile', [ActivityController::class, 'editMyProfile']);
     Route::post('changepassword', [ActivityController::class, 'changePassword']);
     //reset password
+    Route::post('storingsearchruser', [ActivityController::class, 'storingSearchUser']);
+    Route::get('Recentsearchresults', [ActivityController::class, 'recentSearchResults']);
+    Route::get('Mostsearched', [ActivityController::class, 'mostSearched']);
+    Route::get('generaldepartmentproducts/{id?}', [DepartmentController::class, 'generalDepartmentProducts']);
+    Route::get('generalproductstores/{id?}', [StoreController::class, 'generalProductStores']);
+
+
     
 });
 
 //
-Route::get('/migrate', function(){
-    Artisan::call("migrate:fresh —seed");
-});
-Route::get('/migrate', function(){
+Route::get('migrate', function(){
+    Artisan::call("migrate:fresh --seed");
     Artisan::call("passport:install");
-});
-Route::get('/migrate', function(){
-    Artisan::call("migrate —path=database/migrations/ForiegnKeys");
+    Artisan::call("migrate --path=database/migrations/ForeignKeys");
 });

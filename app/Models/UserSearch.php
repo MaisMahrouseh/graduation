@@ -17,4 +17,13 @@ class UserSearch extends BaseModel
         return $this->belongsTo(User::class);
     }
 
+    public function getRecentSearchResults(){
+        return $this->select('text')->where('user_id',auth()->user()->id)->latest()->take(3)->get();
+    }
+
+    public function getmostSearched(){
+        return $this->select('text')->groupBy('text')->orderByRaw('count(*) DESC')->limit(3)->get();
+    }
+
+
 }

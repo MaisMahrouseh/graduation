@@ -6,6 +6,8 @@ use Kouja\ProjectAssistant\Bases\BaseModel;
 use Kouja\ProjectAssistant\Traits\ModelTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\ProductDetail;
+use App\Models\Product;
+use App\Models\Store;
 use App\Models\Sold;
 
 class StoreProduct extends BaseModel
@@ -78,5 +80,21 @@ class StoreProduct extends BaseModel
         return collect($data)->each(function ($dat) {
             unset($dat['store_id'],$dat['department_id'],$dat['product_id']);
         });
+    }
+
+    public function generalProduct($id){
+        $data =   $this->select('product_id')
+                    ->where('department_id', $id)
+                    ->distinct()
+                    ->get();
+        return Product::select('id','name')->whereIn('id',$data)->get();
+    }
+
+    public function generalStores($id){
+      $data =   $this->select('store_id')
+                    ->where('product_id', $id)
+                    ->distinct()
+                    ->get();
+       return Store::select('id','name')->whereIn('id',$data)->get();       
     }
 }

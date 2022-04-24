@@ -21,7 +21,7 @@ class ForeginKeys extends Migration
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->foreignId('store_id')->constrained('stores', 'id');
         });
-        Schema::table('user_search', function (Blueprint $table) {
+        Schema::table('user_searchs', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained('users', 'id');
         });
         Schema::table('user_stores', function (Blueprint $table) {
