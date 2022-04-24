@@ -48,8 +48,11 @@ class Product extends BaseModel
     }
 
     public function getProduct(){
-    return DB::select("SELECT a.id,a.name,a.image,b.name as parent FROM products a
-    LEFT OUTER JOIN products b  on a.product_id = b.id   WHERE a.deleted_at IS  NULL");
+    return DB::table('products as A')
+           ->leftJoin('products as B', 'A.product_id', '=', 'B.id')
+           ->select('A.id','A.name','A.image', 'B.name AS parent')
+           ->whereNull('A.deleted_at')
+           ->paginate(5);
     }
 
     public function updateProduct($request ,$id){

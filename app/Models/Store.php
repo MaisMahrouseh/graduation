@@ -52,18 +52,14 @@ class Store extends BaseModel
                 'locationY' => $request->locationY,
                 'logo' => $picturename,
             ]);}
+            $storeId = $created->id;
+            UserStore::create([
+                'user_id' => auth()->user()->id,
+                'store_id' => $storeId,
+            ]); 
             return $created;
     }
     
-    public function allowAddStore($request){
-        $this->where('id',$request->store_id)->update([
-            'allow' => 1,
-        ]);
-        return UserStore::create([
-            'user_id' => $request->user_id,
-            'store_id' => $request->store_id,
-        ]); 
-    }
     
     public function getDetails($id){
       $details =  $this->select('id','name','logo','phone','locationX','locationY')->where('id', $id)

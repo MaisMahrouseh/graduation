@@ -24,11 +24,21 @@ class UserStore extends BaseModel
 
     public function getMyStores(){
         return $this->select('user_id','store_id')
-           ->join('stores', 'stores.id', '=', 'user_stores.store_id')
+                ->join('stores', 'stores.id', '=', 'user_stores.store_id')
                 ->select('stores.id','stores.name','stores.logo')
                 ->where('stores.allow',1)
                 ->where('user_stores.user_id',auth()->user()->id)
-       ->get();
+                ->get();
+     }
+
+     public function getExistingStores(){
+        return $this->select('store_id', 'user_id')
+                ->join('stores', 'stores.id', '=', 'user_stores.store_id')
+                ->join('users', 'users.id', '=', 'user_stores.user_id')
+                ->select('stores.id as store id','stores.name','stores.logo','stores.phone',
+                'stores.created_at  as the date of join','stores.allow','users.id as user id','stores.deleted_at as delet date')
+                ->orderBy('allow')
+                ->get(); 
      }
 
 }

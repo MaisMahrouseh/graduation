@@ -9,7 +9,6 @@ use App\Models\UserStore;
 use App\Models\StoreDepartment;
 use App\Models\StoreProduct;
 use App\Http\Requests\Store\AddStoreRequest;
-use App\Http\Requests\Store\AllowAddStoreRequest;
 use App\Http\Requests\Store\StoreProductRequest;
 use App\Http\Requests\Store\SortLocationRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
@@ -40,12 +39,60 @@ class StoreController extends Controller
     }
 
     //allow to add store by admin
-    public function allowAddStore(AllowAddStoreRequest $request){
-        $request->validated();
-        $created = $this->store->allowAddStore($request);
-        if (!$created)
+    public function allowAddStore($id){
+        if (!$this->store->find($id))
+          return ResponseHelper::DataNotFound($message = 'Error in store id');
+        $update = $this->store->where('id',$id)->update([
+            'allow' => 1,
+        ]);;
+        if (!$update)
             return ResponseHelper::operationFail();
         return ResponseHelper::operationSuccess();
+    }
+
+    //disallow to add store by admin
+    public function disallowAddStore($id){
+        if (!$this->store->find($id))
+          return ResponseHelper::DataNotFound($message = 'Error in store id');
+        $update = $this->store->where('id',$id)->update([
+            'allow' => 0,
+        ]);;
+        if (!$update)
+            return ResponseHelper::operationFail();
+        return ResponseHelper::operationSuccess();
+    }
+
+    //get existing stores for admin
+    public function existingStores(){ 
+        $stores =  $this->userStore->getExistingStores()->whereNull('delet date');
+        if(!$stores)
+          return ResponseHelper::serverError();
+        return ResponseHelper::select($stores);
+    }
+
+    //get deleted stores for admin
+    public function deletedStores(){
+        $stores =  $this->userStore->getExistingStores()->whereNotNull('delet date');
+        if(!$stores)
+          return ResponseHelper::serverError();
+        return ResponseHelper::select($stores);
+    }
+
+    //recovery deleted store
+    public function recoveryStore($id){
+      $update = $this->store->where('id', $id)->withTrashed()->restore();
+      if (!$update)
+          return ResponseHelper::operationFail();
+      return ResponseHelper::operationSuccess();
+    }
+    public function deleteStore($id){
+        $storeId =  $this->store->find($id);
+        if (!$storeId)
+          return ResponseHelper::DataNotFound($message = 'Error in store id');
+        $deleted = $storeId->delete();
+        if (!$deleted)
+           return ResponseHelper::deletingFail();
+         return ResponseHelper::delete();
     }
 
     //get user stores

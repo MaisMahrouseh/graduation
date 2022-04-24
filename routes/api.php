@@ -19,7 +19,12 @@ Route::middleware(['auth:api' , 'isAdmin'])->group(function () {
     Route::post('updated/{id?}', [DepartmentController::class, 'updateD']);
     Route::resource('product', ProductController::class);
     Route::post('updatep/{id?}', [ProductController::class, 'updateP']);
-    Route::post('allowaddstore', [StoreController::class, 'allowAddStore']);//notification and NO
+    Route::get('existingstores', [StoreController::class, 'existingStores']);//NO
+    Route::get('deletedstores', [StoreController::class, 'deletedStores']);//NO
+    Route::post('allowaddstore/{id?}', [StoreController::class, 'allowAddStore']);//notification and NO
+    Route::post('disallowaddstore/{id?}', [StoreController::class, 'disallowAddStore']);//notification and NO
+    Route::post('recoverystore/{id?}', [StoreController::class, 'recoveryStore']);// NO
+    Route::Delete('deletestore/{id?}', [StoreController::class, 'deleteStore']);// NO
 });
 
 
@@ -54,7 +59,16 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::post('editProfile', [ActivityController::class, 'editMyProfile']);
     Route::post('changepassword', [ActivityController::class, 'changePassword']);
     //reset password
+    
+});
 
-
-
+//
+Route::get('/migrate', function(){
+    Artisan::call("migrate:fresh —seed");
+});
+Route::get('/migrate', function(){
+    Artisan::call("passport:install");
+});
+Route::get('/migrate', function(){
+    Artisan::call("migrate —path=database/migrations/ForiegnKeys");
 });
