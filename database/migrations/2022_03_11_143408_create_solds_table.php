@@ -13,7 +13,7 @@ class CreateSoldsTable extends Migration
             $table->id();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
-            $table->decimal('new_price');
+            $table->decimal('new_price')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

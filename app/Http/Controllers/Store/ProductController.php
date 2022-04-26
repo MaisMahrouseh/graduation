@@ -100,6 +100,16 @@ class ProductController extends Controller
         return ResponseHelper::serverError();
     return ResponseHelper::select($selected);
   }
+  //delete product from my store
+  public function deleteMyStoreProducts($id){
+    $product =  $this->storeProduct->find($id);
+    if (!$product)
+      return ResponseHelper::DataNotFound($message = "invalid id");
+    $deleted = $product->delete();
+    if (!$deleted)
+       return ResponseHelper::deletingFail();
+     return ResponseHelper::delete();
+  }
 
   //Get all the products of a specific department for a specific store
   public function storeDepartmentProducts(ProductDepartmentRequest $request){
