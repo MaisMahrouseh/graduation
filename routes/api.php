@@ -42,7 +42,7 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::Delete('deletestoredepartment/{id?}', [DepartmentController::class, 'deleteStoreDepartments']);// NO
     Route::post('editdetailsstore/{id?}', [StoreController::class, 'editDetailsStore']);// NO
     Route::post('search', [ProductController::class, 'search']);/**/ // NO
-    Route::Get('allUnite', [UniteController::class, 'index']);// NO
+   // Route::Get('allUnite', [UniteController::class, 'index']);// NO
     Route::Get('mydepartmentstore/{id?}', [DepartmentController::class, 'myDepartmentStore']);// NO
     Route::post('addstoreproduct', [StoreController::class, 'addStoreProduct']);// NO
     Route::post('notexistproduct', [ProductController::class, 'notExistProduct']);//notification no
