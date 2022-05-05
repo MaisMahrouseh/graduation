@@ -16,8 +16,8 @@ class AddStoreDepartmentseRequest extends FormRequest
     {
         return [
             'departments' => ['required','array','min:1'],
-            'departments.*' => ['required','integer'],
-            'store_id' => ['required','integer'],
+            'departments.*' => 'required|integer|exists:departments,id',
+            'store_id' => 'required|integer|exists:stores,id',
         ];
     }
 }
