@@ -13,15 +13,15 @@ class RegisterRequet extends BaseFormRequest
     {
         return true;
     }
- 
+
     public function rules()
     {
         return [
             'firstname' => ['required', 'string'],
             'lastname' => ['required', 'string'],
-            'email' =>['required','email','unique:users'],
+            'email' =>['nullable','email','unique:users'],
             'password' =>['required','min:6'],
-            'phone' => ['required', 'string'],
+            'phone' => ['nullable', 'string'],
         ];
     }
 }

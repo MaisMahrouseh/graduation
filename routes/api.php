@@ -20,63 +20,63 @@ Route::middleware(['auth:api' , 'isAdmin'])->group(function () {
     Route::post('updated/{id?}', [DepartmentController::class, 'updateD']);
     Route::resource('product', ProductController::class);
     Route::post('updatep/{id?}', [ProductController::class, 'updateP']);
-    Route::get('existingstores', [StoreController::class, 'existingStores']);//NO
-    Route::get('deletedstores', [StoreController::class, 'deletedStores']);//NO
+    Route::get('existingstores', [StoreController::class, 'existingStores']);
+    Route::get('deletedstores', [StoreController::class, 'deletedStores']);
     Route::post('allowaddstore/{id?}', [StoreController::class, 'allowAddStore']);//notification and NO
     Route::post('disallowaddstore/{id?}', [StoreController::class, 'disallowAddStore']);//notification and NO
-    Route::post('recoverystore/{id?}', [StoreController::class, 'recoveryStore']);// NO
-    Route::Delete('deletestore/{id?}', [StoreController::class, 'deleteStore']);// NO
+    Route::post('recoverystore/{id?}', [StoreController::class, 'recoveryStore']);
+    Route::Delete('deletestore/{id?}', [StoreController::class, 'deleteStore']);
 });
 
 
 Route::middleware(['auth:api' , 'isUser'])->group(function () {
-    Route::Get('alldepartment', [DepartmentController::class, 'index']);// NO
-    Route::post('adddepartment', [DepartmentController::class, 'store']);// NO
+    Route::post('adddepartment', [DepartmentController::class, 'store']);
     Route::post('addstore', [StoreController::class, 'addStore']);//notification 
     Route::Get('mystores', [StoreController::class, 'myStores']);
     Route::Get('detailsstore/{id?}', [StoreController::class, 'detailsStore']);
     Route::post('addstoredepartment', [DepartmentController::class, 'addStoreDepartments']);
-    Route::Delete('deletestoredepartment/{id?}', [DepartmentController::class, 'deleteStoreDepartments']);// NO
-    Route::post('editdetailsstore/{id?}', [StoreController::class, 'editDetailsStore']);// NO
-    Route::post('search', [ProductController::class, 'search']);/**/ // NO
-    Route::Get('allUnite', [UniteController::class, 'index']);// NO
-    Route::Get('mydepartmentstore/{id?}', [DepartmentController::class, 'myDepartmentStore']);// NO
-    Route::post('addstoreproduct', [StoreController::class, 'addStoreProduct']);// NO
-    Route::post('notexistproduct', [ProductController::class, 'notExistProduct']);//notification no
-    Route::get('mystoreproducts/{id?}', [ProductController::class, 'myStoreProducts']);// NO
-    Route::get('Deletemystoreproducts/{id?}', [ProductController::class, 'deleteMyStoreProducts']);// NO
+    Route::Delete('deletestoredepartment/{id?}', [DepartmentController::class, 'deleteStoreDepartments']);
+    Route::post('editdetailsstore/{id?}', [StoreController::class, 'editDetailsStore']);
+    Route::post('search', [ProductController::class, 'search']);
+    Route::Get('allUnite', [UniteController::class, 'index']);
+    Route::Get('mydepartmentstore/{id?}', [DepartmentController::class, 'myDepartmentStore']);
+    Route::post('addstoreproduct', [StoreController::class, 'addStoreProduct']);
+    Route::post('notexistproduct', [ProductController::class, 'notExistProduct']);//notification 
+    Route::get('mystoreproducts/{id?}', [ProductController::class, 'myStoreProducts']);
+    Route::get('Deletemystoreproducts/{id?}', [ProductController::class, 'deleteMyStoreProducts']);
     //edit store product
     //add update delete solds store
     
-    Route::get('allstores', [StoreController::class, 'getAllStores']);// NO
-    Route::get('sortstorename', [StoreController::class, 'sortStoresName']);// NO
-    Route::get('sortstorerate', [StoreController::class, 'sortStoresRate']);// NO
-    Route::post('sortstorelocation', [StoreController::class, 'sortStoresLocation']);// NO
-    Route::get('astore/{id?}', [StoreController::class, 'getStore']);// NO
+    Route::get('allstores', [StoreController::class, 'getAllStores']);
+    Route::get('sortstorename', [StoreController::class, 'sortStoresName']);
+    Route::get('sortstorerate', [StoreController::class, 'sortStoresRate']);
+    Route::post('sortstorelocation', [StoreController::class, 'sortStoresLocation']);
+    Route::get('astore/{id?}', [StoreController::class, 'getStore']);
     //Route::post('storedepartmentproducts', [ProductController::class, 'storeDepartmentProducts']); // NO
    
-    Route::post('favorite', [ActivityController::class, 'favorite']);// NO
-    Route::get('myfavorite', [ActivityController::class, 'myFavorite']);// NO
-    Route::post('rate', [ActivityController::class, 'rate']);// NO
-    Route::get('myrate', [ActivityController::class, 'myRate']);// NO
-    Route::get('getProfile', [ActivityController::class, 'getMyProfile']);// NO
-    Route::post('editProfile', [ActivityController::class, 'editMyProfile']);// NO
-    Route::post('changepassword', [ActivityController::class, 'changePassword']);// NO
+    Route::post('favorite', [ActivityController::class, 'favorite']);
+    Route::get('myfavorite', [ActivityController::class, 'myFavorite']);
+    Route::post('rate', [ActivityController::class, 'rate']);
+    Route::get('myrate', [ActivityController::class, 'myRate']);
+    Route::get('getProfile', [ActivityController::class, 'getMyProfile']);
+    Route::post('editProfile', [ActivityController::class, 'editMyProfile']);
+    Route::post('changepassword', [ActivityController::class, 'changePassword']);
     //reset password
 
-    Route::get('generaldepartmentproducts/{id?}', [DepartmentController::class, 'generalDepartmentProducts']);// NO
-    Route::get('generalproductstores/{id?}', [StoreController::class, 'generalProductStores']);// NO
-    Route::get('allsolds', [SoldController::class, 'allSolds']);// NO
+    Route::Get('alldepartment', [DepartmentController::class, 'index']);
+    Route::get('generaldepartmentproducts/{id?}', [DepartmentController::class, 'generalDepartmentProducts']);
+    Route::get('generalproductstores/{id?}', [StoreController::class, 'generalProductStores']);
+    Route::get('allsolds', [SoldController::class, 'allSolds']);
 
-    Route::post('storingsearchruser', [ActivityController::class, 'storingSearchUser']);// NO
-    Route::get('Recentsearchresults', [ActivityController::class, 'recentSearchResults']);// NO
-    Route::get('Mostsearched', [ActivityController::class, 'mostSearched']);// NO
-    Route::post('addtocart/{id?}', [CartController::class, 'addTocart']);// NO
-    Route::post('cheapestproduct/{id?}', [CartController::class, 'cheapestProduct']);// NO
-    Route::post('closesttproduct/{id?}', [CartController::class, 'closestProduct']);// NO
+    Route::post('storingsearchruser', [ActivityController::class, 'storingSearchUser']);
+    Route::get('Recentsearchresults', [ActivityController::class, 'recentSearchResults']);
+    Route::get('Mostsearched', [ActivityController::class, 'mostSearched']);
+    Route::post('addtocart/{id?}', [CartController::class, 'addTocart']);
+    Route::post('cheapestproduct/{id?}', [CartController::class, 'cheapestProduct']);
+    Route::post('closesttproduct/{id?}', [CartController::class, 'closestProduct']);
 
-    Route::get('getcart', [CartController::class, 'getCart']);// NO
-    Route::Delete('removefromcart/{id?}', [CartController::class, 'removeFromCart']);// NO
+    Route::get('getcart', [CartController::class, 'getCart']);
+    Route::Delete('removefromcart/{id?}', [CartController::class, 'removeFromCart']);
     //nearest cart - cheapest cart- .....
 
 });
