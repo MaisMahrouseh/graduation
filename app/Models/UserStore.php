@@ -35,10 +35,10 @@ class UserStore extends BaseModel
         return $this->select('store_id', 'user_id')
                 ->join('stores', 'stores.id', '=', 'user_stores.store_id')
                 ->join('users', 'users.id', '=', 'user_stores.user_id')
-                ->select('stores.id as store id','stores.name','stores.logo','stores.phone',
-                'stores.created_at  as the date of join','stores.allow','users.id as user id','stores.deleted_at as delet date')
+                ->select('stores.id as store_id','stores.name','stores.logo','stores.phone',
+                'stores.created_at  as date_join','stores.allow','users.id as user_id','stores.deleted_at as delet_date')
                 ->orderBy('allow')
-                ->get(); 
+                ->get();
      }
 
 }
