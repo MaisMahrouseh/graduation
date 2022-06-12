@@ -45,7 +45,7 @@ class Store extends BaseModel
         if($request->hasFile('logo')){
             $picturename = rand().'.'.$picture->getClientOriginalExtension();
             $picture->move(public_path('images/StoreImages'),$picturename);
-            $picturename = 'https://mais-api.preneom.com/public/images/StoreImages/'+(string)$picturename;
+            $picturename = 'https://mais-api.preneom.com/public/images/StoreImages/'.(string)$picturename;
             $created = $this->create([
                 'name' => $request->name,
                 'phone' => $request->phone,
