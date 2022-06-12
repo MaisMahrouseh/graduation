@@ -45,6 +45,7 @@ class Store extends BaseModel
         if($request->hasFile('logo')){
             $picturename = rand().'.'.$picture->getClientOriginalExtension();
             $picture->move(public_path('images/StoreImages'),$picturename);
+            $picturename = "https://mais-api.preneom.com/public/images/StoreImages/"+$picturename;
             $created = $this->create([
                 'name' => $request->name,
                 'phone' => $request->phone,
@@ -56,11 +57,11 @@ class Store extends BaseModel
             UserStore::create([
                 'user_id' => auth()->user()->id,
                 'store_id' => $storeId,
-            ]); 
+            ]);
             return $created;
     }
-    
-    
+
+
     public function getDetails($id){
       $details =  $this->select('id','name','logo','phone','locationX','locationY')->where('id', $id)
         ->with(['storedepartments' => function($q){
@@ -70,7 +71,7 @@ class Store extends BaseModel
       $departments = Department::select('id','name')
            ->whereNotIn('id',StoreDepartment::select('department_id')->where('store_id',$id)->get())
            ->get();
-        return [$details, $departments]; 
+        return [$details, $departments];
        }
 
     public function getStores(){
@@ -82,8 +83,8 @@ class Store extends BaseModel
             $store['rate'] = collect($store['rates'])->avg('rate');
             unset($store['rates']);
         });
-    } 
-    
+    }
+
     public function storeInfo($id){
         return $this->select('name' ,'phone','locationX','locationY','logo')
         ->where('id', $id)
