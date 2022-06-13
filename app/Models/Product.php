@@ -51,7 +51,7 @@ class Product extends BaseModel
     public function getProduct(){
     return DB::table('products as A')
            ->leftJoin('products as B', 'A.product_id', '=', 'B.id')
-           ->select('A.id','A.name','A.image', 'B.name AS parent')
+           ->select('A.id as product_id','A.name','A.image', 'B.name AS parent')
            ->whereNull('A.deleted_at')
            ->orderBy('parent')
            ->paginate(5);
