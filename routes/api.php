@@ -15,17 +15,17 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api');
 //Route::middleware(['auth:api' , 'isAdmin'])->group(function () {
     Route::resource('unite', UniteController::class);
-    Route::post('updateu/{id?}', [UniteController::class, 'updateU']);
+    Route::post('updateu/{id}', [UniteController::class, 'updateU']);
     Route::resource('department', DepartmentController::class);
-    Route::post('updated/{id?}', [DepartmentController::class, 'updateD']);
+    Route::post('updated/{id}', [DepartmentController::class, 'updateD']);
     Route::resource('product', ProductController::class);
-    Route::post('updatep/{id?}', [ProductController::class, 'updateP']);
+    Route::post('updatep/{id}', [ProductController::class, 'updateP']);
     Route::get('existingstores', [StoreController::class, 'existingStores']);
     Route::get('deletedstores', [StoreController::class, 'deletedStores']);
-    Route::post('allowaddstore/{id?}', [StoreController::class, 'allowAddStore']);//notification and NO
-    Route::post('disallowaddstore/{id?}', [StoreController::class, 'disallowAddStore']);//notification and NO
-    Route::post('recoverystore/{id?}', [StoreController::class, 'recoveryStore']);
-    Route::Delete('deletestore/{id?}', [StoreController::class, 'deleteStore']);
+    Route::post('allowaddstore/{id}', [StoreController::class, 'allowAddStore']);//notification and NO
+    Route::post('disallowaddstore/{id}', [StoreController::class, 'disallowAddStore']);//notification and NO
+    Route::post('recoverystore/{id}', [StoreController::class, 'recoveryStore']);
+    Route::Delete('deletestore/{id}', [StoreController::class, 'deleteStore']);
 //});
 
 
@@ -33,17 +33,18 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::post('adddepartment', [DepartmentController::class, 'store']);
     Route::post('addstore', [StoreController::class, 'addStore']);//notification
     Route::Get('mystores', [StoreController::class, 'myStores']);
-    Route::Get('detailsstore/{id?}', [StoreController::class, 'detailsStore']);
+    Route::Get('detailsstore/{id}', [StoreController::class, 'detailsStore']);
     Route::post('addstoredepartment', [DepartmentController::class, 'addStoreDepartments']);
-    Route::Delete('deletestoredepartment/{id?}', [DepartmentController::class, 'deleteStoreDepartments']);
+    Route::Delete('deletestoredepartment/{id}', [DepartmentController::class, 'deleteStoreDepartments']);
     Route::post('editdetailsstore/{id?}', [StoreController::class, 'editDetailsStore']);
     Route::post('search', [ProductController::class, 'search']);
     Route::Get('allUnite', [UniteController::class, 'index']);
-    Route::Get('mydepartmentstore/{id?}', [DepartmentController::class, 'myDepartmentStore']);
+    Route::Get('mydepartmentstore/{id}', [DepartmentController::class, 'myDepartmentStore']);
     Route::post('addstoreproduct', [StoreController::class, 'addStoreProduct']);
     Route::post('notexistproduct', [ProductController::class, 'notExistProduct']);//notification
-    Route::get('mystoreproducts/{id?}', [ProductController::class, 'myStoreProducts']);
-    Route::get('Deletemystoreproducts/{id?}', [ProductController::class, 'deleteMyStoreProducts']);
+    Route::get('mystoreproducts/{id}', [ProductController::class, 'myStoreProducts']);
+    Route::get('Deletemystoreproducts/{id}', [ProductController::class, 'deleteMyStoreProducts']);
+/////////////////
     //edit store product
     //add update delete solds store
 
@@ -51,7 +52,7 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::get('sortstorename', [StoreController::class, 'sortStoresName']);
     Route::get('sortstorerate', [StoreController::class, 'sortStoresRate']);
     Route::post('sortstorelocation', [StoreController::class, 'sortStoresLocation']);
-    Route::get('astore/{id?}', [StoreController::class, 'getStore']);
+    Route::get('astore/{id}', [StoreController::class, 'getStore']);
     //Route::post('storedepartmentproducts', [ProductController::class, 'storeDepartmentProducts']); // NO
 
     Route::post('favorite', [ActivityController::class, 'favorite']);
@@ -64,19 +65,19 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     //reset password
 
     Route::Get('alldepartment', [DepartmentController::class, 'index']);
-    Route::get('generaldepartmentproducts/{id?}', [DepartmentController::class, 'generalDepartmentProducts']);
-    Route::get('generalproductstores/{id?}', [StoreController::class, 'generalProductStores']);
+    Route::get('generaldepartmentproducts/{id}', [DepartmentController::class, 'generalDepartmentProducts']);
+    Route::get('generalproductstores/{id}', [StoreController::class, 'generalProductStores']);
     Route::get('allsolds', [SoldController::class, 'allSolds']);
 
     Route::post('storingsearchruser', [ActivityController::class, 'storingSearchUser']);
     Route::get('Recentsearchresults', [ActivityController::class, 'recentSearchResults']);
     Route::get('Mostsearched', [ActivityController::class, 'mostSearched']);
-    Route::post('addtocart/{id?}', [CartController::class, 'addTocart']);
-    Route::post('cheapestproduct/{id?}', [CartController::class, 'cheapestProduct']);
-    Route::post('closesttproduct/{id?}', [CartController::class, 'closestProduct']);
+    Route::post('addtocart/{id}', [CartController::class, 'addTocart']);
+    Route::post('cheapestproduct/{id}', [CartController::class, 'cheapestProduct']);
+    Route::post('closesttproduct/{id}', [CartController::class, 'closestProduct']);
 
     Route::get('getcart', [CartController::class, 'getCart']);
-    Route::Delete('removefromcart/{id?}', [CartController::class, 'removeFromCart']);
+    Route::Delete('removefromcart/{id}', [CartController::class, 'removeFromCart']);
     //nearest cart - cheapest cart- .....
 
 });
@@ -86,3 +87,4 @@ Route::get('migrate', function(){
     Artisan::call("passport:install");
     Artisan::call("migrate --path=database/migrations/ForeignKeys");
 });
+Route::post('editallprices', [ProductController::class, 'editAllPrices']);

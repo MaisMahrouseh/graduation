@@ -77,6 +77,7 @@ class Store extends BaseModel
     public function getStores(){
         $stores = $this->select('id', 'name', 'logo')
             ->where('allow',1)
+            ->orderBy('id')
             ->get();
 
         return collect($stores)->each(function ($store) {

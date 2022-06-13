@@ -8,10 +8,12 @@ use App\Models\Product;
 use App\Models\Store;
 use App\Models\AdminProduct;
 use App\Models\StoreProduct;
+use App\Models\ProductDetail;
 use App\Http\Requests\Store\ProductRequest;
 use App\Http\Requests\User\SearchRequest;
 use App\Http\Requests\Store\NotExistProductRequest;
 use App\Http\Requests\Store\ProductDepartmentRequest;
+use App\Http\Requests\Store\UpdatePriceRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
 
 class ProductController extends Controller
@@ -20,12 +22,13 @@ class ProductController extends Controller
     public $adminProduct;
     public $store;
     public $storeProduct;
-    public function __construct(Product $product, AdminProduct $adminProduct , Store $store, StoreProduct $storeProduct)
+    public function __construct(Product $product, AdminProduct $adminProduct , Store $store, StoreProduct $storeProduct, ProductDetail $productDetail)
     {
         $this->product = $product;
         $this->adminProduct = $adminProduct;
         $this->store = $store;
         $this->storeProduct = $storeProduct;
+        $this->productDetail = $productDetail;
     }
 
     //show all products
@@ -45,8 +48,8 @@ class ProductController extends Controller
       if(!$created)
         return ResponseHelper::creatingFail();
       return ResponseHelper::create($created);
-    } 
-  
+    }
+
    //Delete product
   public function destroy($id)
   {
@@ -109,6 +112,38 @@ class ProductController extends Controller
     if (!$deleted)
        return ResponseHelper::deletingFail();
      return ResponseHelper::delete();
+  }
+
+  public function editAllPrices(UpdatePriceRequest $request){
+    /*$request->validated();
+    $percent = $request->percent /100;
+    $ss = $mm = $this->productDetail
+      ->join('store_products', 'store_products.id', '=', 'product_details.store_product_id')
+      ->select('product_details.id')
+      ->where('store_products.store_id',1)
+      ->get();*/
+    /* foreach($ss as $s){
+        $idd = $this->productDetail->find($s);
+        $md = $idd->price + 100;
+        $this->productDetail->where('id',$s)->update([
+            'price' => $md ]);
+       }*/
+
+
+    /*$update = $this->productDetail->where('id',1)->
+    update([
+        'price' => old('price')+ 100]);*/
+
+
+
+   //  $mm = $this->productDetail
+   /*  ->join('store_products', 'store_products.id', '=', 'product_details.store_product_id')
+     ->select('product_details.id')
+     ->where('store_products.store_id',1)
+     ->get();
+    //$m = $m *74;
+    return $mm;*/
+
   }
 
   //Get all the products of a specific department for a specific store

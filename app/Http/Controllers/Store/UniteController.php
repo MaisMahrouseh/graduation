@@ -20,7 +20,7 @@ class UniteController extends Controller
     //show all unites
     public function index()
     {
-        $unites = $this->unite->getData();
+        $unites = $this->unite->orderBy('id')->get();
         if(!$unites)
           return ResponseHelper::serverError();
         return ResponseHelper::select($unites);
@@ -33,7 +33,7 @@ class UniteController extends Controller
     if(!$created)
       return ResponseHelper::creatingFail();
      return ResponseHelper::create($created);
-  }  
+  }
 
  //Edit unite
  public function updateu(UniteRequest $request, $id){

@@ -27,7 +27,7 @@ class DepartmentController extends Controller
     //show all departments
     public function index()
     {
-        $departments = $this->department->getData();
+        $departments = $this->department->orderBy('id')->get();
         if(!$departments)
           return ResponseHelper::serverError();
         return ResponseHelper::select($departments);
@@ -40,7 +40,7 @@ class DepartmentController extends Controller
     if(!$created)
       return ResponseHelper::creatingFail();
      return ResponseHelper::create($created);
-  }  
+  }
 
  //Edit department
  public function updateD(DepartmentRequest $request, $id){

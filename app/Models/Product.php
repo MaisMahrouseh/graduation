@@ -22,13 +22,13 @@ class Product extends BaseModel
     {
         return $this->hasMany(StoreProduct::class);
     }
-    
+
 
     public function children()
     {
         return $this->hasMany(Product::class, 'product_id');
     }
-    
+
     public function parent()
     {
         return $this->belongsTo(Product::class, 'product_id');
@@ -39,6 +39,7 @@ class Product extends BaseModel
         if($request->hasFile('image')){
             $picturename = rand().'.'.$picture->getClientOriginalExtension();
             $picture->move(public_path('images/ProductImages'),$picturename);
+            $picturename = 'https://mais-api.preneom.com/public/images/ProductImages/'.(string)$picturename;
             $created = $this->create([
                 'name' => $request->name,
                 'image' => $picturename,
@@ -52,6 +53,7 @@ class Product extends BaseModel
            ->leftJoin('products as B', 'A.product_id', '=', 'B.id')
            ->select('A.id','A.name','A.image', 'B.name AS parent')
            ->whereNull('A.deleted_at')
+           ->orderBy('parent')
            ->paginate(5);
     }
 
@@ -60,6 +62,7 @@ class Product extends BaseModel
         if($request->hasFile('image')){
             $picturename = rand().'.'.$picture->getClientOriginalExtension();
             $picture->move(public_path('images/ProductImages'),$picturename);
+            $picturename = 'https://mais-api.preneom.com/public/images/ProductImages/'.(string)$picturename;
             $updated = $this->where('id',$id)->update([
                 'name' => $request->name,
                 'image' => $picturename,
