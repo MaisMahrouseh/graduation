@@ -12,7 +12,9 @@ class ProductDetail extends BaseModel
     use HasFactory ,SoftDeletes, ModelTrait;
 
     protected $fillable = ['id', 'price', 'batch_number', 'describe' ,'store_product_id', 'unite_id'];
-
+    protected $casts = [
+        'price' => 'float',
+    ];
     public function storeproduct()
     {
         return $this->belongsTo(StoreProduct::class);

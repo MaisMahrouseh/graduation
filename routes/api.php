@@ -44,7 +44,8 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::post('notexistproduct', [ProductController::class, 'notExistProduct']);//notification
     Route::get('mystoreproducts/{id}', [ProductController::class, 'myStoreProducts']);
     Route::get('Deletemystoreproducts/{id}', [ProductController::class, 'deleteMyStoreProducts']);
-/////////////////
+    Route::post('editallprices', [ProductController::class, 'editAllPrices']);
+
     //edit store product
     //add update delete solds store
 
@@ -87,4 +88,3 @@ Route::get('migrate', function(){
     Artisan::call("passport:install");
     Artisan::call("migrate --path=database/migrations/ForeignKeys");
 });
-Route::post('editallprices', [ProductController::class, 'editAllPrices']);

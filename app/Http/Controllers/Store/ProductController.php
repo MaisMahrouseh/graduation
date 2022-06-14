@@ -115,35 +115,18 @@ class ProductController extends Controller
   }
 
   public function editAllPrices(UpdatePriceRequest $request){
-    /*$request->validated();
+    $request->validated();
     $percent = $request->percent /100;
-    $ss = $mm = $this->productDetail
+    $ss =  $this->productDetail
       ->join('store_products', 'store_products.id', '=', 'product_details.store_product_id')
       ->select('product_details.id')
-      ->where('store_products.store_id',1)
-      ->get();*/
-    /* foreach($ss as $s){
-        $idd = $this->productDetail->find($s);
-        $md = $idd->price + 100;
-        $this->productDetail->where('id',$s)->update([
-            'price' => $md ]);
-       }*/
-
-
-    /*$update = $this->productDetail->where('id',1)->
-    update([
-        'price' => old('price')+ 100]);*/
-
-
-
-   //  $mm = $this->productDetail
-   /*  ->join('store_products', 'store_products.id', '=', 'product_details.store_product_id')
-     ->select('product_details.id')
-     ->where('store_products.store_id',1)
-     ->get();
-    //$m = $m *74;
-    return $mm;*/
-
+      ->where('store_products.store_id',$request->store_id)
+      ->get();
+     foreach($ss as $s){
+        $item = ProductDetail::where('id',$s->id)->first();
+        $item->price = $item->price * $percent;
+        $item->save();
+       }
   }
 
   //Get all the products of a specific department for a specific store
