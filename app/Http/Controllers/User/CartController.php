@@ -68,4 +68,24 @@ class CartController extends Controller
            return ResponseHelper::deletingFail();
          return ResponseHelper::delete();
     }
+
+    public function cheapestCart(){
+      //  $cheapes =  $this->cart->getUserCart();
+      //  $m = $cheapes->product_id;
+
+        //ضمن متاجر مختلفة
+      /*  $this->storeProduct->where('product_id',$id)
+        ->join('product_details', 'product_details.store_product_id', '=', 'store_products.id')
+        ->join('stores', 'stores.id', '=', 'store_products.store_id')
+        ->select('price','stores.id','stores.name','stores.logo')
+        ->orderBy('price')
+        ->get();*/
+
+
+
+
+        //if(!$cheapes)
+        //  return ResponseHelper::serverError();
+        return ResponseHelper::select($m);
+    }
 }

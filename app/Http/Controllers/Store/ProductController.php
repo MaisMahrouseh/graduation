@@ -117,16 +117,17 @@ class ProductController extends Controller
   public function editAllPrices(UpdatePriceRequest $request){
     $request->validated();
     $percent = $request->percent /100;
-    $ss =  $this->productDetail
+    $items =  $this->productDetail
       ->join('store_products', 'store_products.id', '=', 'product_details.store_product_id')
       ->select('product_details.id')
       ->where('store_products.store_id',$request->store_id)
       ->get();
-     foreach($ss as $s){
-        $item = ProductDetail::where('id',$s->id)->first();
+     foreach($items as $item){
+        $item = ProductDetail::where('id',$item->id)->first();
         $item->price = $item->price * $percent;
         $item->save();
        }
+       return ResponseHelper::operationSuccess($data = "Operation completed successfully");
   }
 
   //Get all the products of a specific department for a specific store
