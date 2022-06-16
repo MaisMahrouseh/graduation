@@ -64,7 +64,7 @@ class StoreController extends Controller
     }
 
     //get existing stores for admin
-    public function existingStores(){ 
+    public function existingStores(){
         $stores =  $this->userStore->getExistingStores()->whereNull('delet date');
         if(!$stores)
           return ResponseHelper::serverError();
@@ -117,11 +117,21 @@ class StoreController extends Controller
         $userStoreId =  $this->userStore->select('user_id')->where('store_id',$id)->get();
         if(auth()->user()->id != $userStoreId->first()->user_id)
            return ResponseHelper::operationFail($message = "You are not the owner of this store");
-        $validated = $request->validated();
+        $request->validated();
         $store = $this->store->find($id);
         if (!$store)
             return ResponseHelper::DataNotFound();
-        $updated = $this->store->where('id',$id)->update($validated);
+        if($request->hasFile('logo')){
+            $picturename = rand().'.'.$picture->getClientOriginalExtension();
+            $picture->move(public_path('images/StoreImages'),$picturename);
+            $picturename = 'https://mais-api.preneom.com/public/images/StoreImages/'.(string)$picturename;
+            $updated = $this->store->where('id',$id)->update([
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'locationX' => $request->locationX,
+                'locationY' => $request->locationY,
+                'logo' => $picturename,
+            ]);}
         if(!$updated)
             return ResponseHelper::updatingFail();
         return ResponseHelper::update($updated);
@@ -169,7 +179,7 @@ class StoreController extends Controller
         return ResponseHelper::select($stores);
     }
 
-    //Sort stores according to the highest rating 
+    //Sort stores according to the highest rating
     public function sortStoresRate(){
         $stores = clone $this->store->getStores()->sortByDesc('rate');
         if(!$stores)
@@ -187,5 +197,5 @@ class StoreController extends Controller
         return ResponseHelper::serverError();
       return ResponseHelper::select($products);
     }
-  
+
 }
