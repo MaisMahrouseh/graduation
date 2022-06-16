@@ -121,6 +121,7 @@ class StoreController extends Controller
         $store = $this->store->find($id);
         if (!$store)
             return ResponseHelper::DataNotFound();
+        $picture = $request->file('logo');
         if($request->hasFile('logo')){
             $picturename = rand().'.'.$picture->getClientOriginalExtension();
             $picture->move(public_path('images/StoreImages'),$picturename);
