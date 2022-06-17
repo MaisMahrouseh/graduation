@@ -22,6 +22,7 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api')
     Route::post('deletedepartment/{id}', [DepartmentController::class, 'deeleteDepartment']);
     Route::post('updated/{id}', [DepartmentController::class, 'updateD']);
     Route::resource('product', ProductController::class);
+    Route::post('deleteproduct/{id}', [ProductController::class,'deleteProduct']);
     Route::post('updatep/{id}', [ProductController::class, 'updateP']);
     Route::get('existingstores', [StoreController::class, 'existingStores']);
     Route::get('deletedstores', [StoreController::class, 'deletedStores']);

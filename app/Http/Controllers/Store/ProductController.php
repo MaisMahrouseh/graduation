@@ -51,7 +51,7 @@ class ProductController extends Controller
     }
 
    //Delete product
-  public function destroy($id)
+  public function deleteProduct($id)
   {
      $product =  $this->product->find($id);
      if (!$product)
