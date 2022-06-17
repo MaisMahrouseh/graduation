@@ -9,6 +9,7 @@ use App\Models\ProductDetail;
 use App\Models\Product;
 use App\Models\Store;
 use App\Models\Sold;
+use Illuminate\Support\Facades\DB;
 
 class StoreProduct extends BaseModel
 {
@@ -75,9 +76,9 @@ class StoreProduct extends BaseModel
                ->leftJoin('solds', 'solds.product_detail_id', '=', 'product_details.id')
                ->select('price','store_product_id','batch_number','describe','unites.name as unite_name','unites.id as unite_id','solds.id as sold_id',
                'solds.new_price as discount_Price','solds.start_date as discount_start_date','solds.end_date as discount_end_date')
-            ;}])
-            //ترتيب حسب الحسم
+               ;}])
         ->get();
+
         return collect($data)->each(function ($dat) {
             unset($dat['store_id'],$dat['department_id'],$dat['product_id']);
         });

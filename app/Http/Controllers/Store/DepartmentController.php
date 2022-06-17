@@ -55,7 +55,7 @@ class DepartmentController extends Controller
   }
 
   //Delete department
-  public function destroy($id)
+  public function deeleteDepartment($id)
   {
      $department = $this->department->find($id);
       if (!$department)
