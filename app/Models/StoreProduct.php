@@ -62,7 +62,7 @@ class StoreProduct extends BaseModel
         return true;
     }
 
-    
+
     public function getProducts($id){
         $data =  $this->select('id','store_id', 'department_id', 'product_id')
         ->where('store_id',$id)
@@ -74,8 +74,9 @@ class StoreProduct extends BaseModel
             $q ->join('unites', 'unites.id', '=', 'product_details.unite_id')
                ->leftJoin('solds', 'solds.product_detail_id', '=', 'product_details.id')
                ->select('price','store_product_id','batch_number','describe','unites.name as unite_name','unites.id as unite_id','solds.id as sold_id',
-               'solds.new_price as discount Price','solds.start_date as discount start date','solds.end_date as discount end date')
-            ;}])    
+               'solds.new_price as discount_Price','solds.start_date as discount_start_date','solds.end_date as discount_end_date')
+            ;}])
+            //ترتيب حسب الحسم
         ->get();
         return collect($data)->each(function ($dat) {
             unset($dat['store_id'],$dat['department_id'],$dat['product_id']);
@@ -95,7 +96,7 @@ class StoreProduct extends BaseModel
                     ->where('product_id', $id)
                     ->distinct()
                     ->get();
-       return Store::select('id','name')->whereIn('id',$data)->get();       
+       return Store::select('id','name')->whereIn('id',$data)->get();
     }
 
     public function getCheapestProduct($id){

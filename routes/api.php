@@ -13,8 +13,10 @@ use App\Http\Controllers\User\CartController;
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api');
-//Route::middleware(['auth:api' , 'isAdmin'])->group(function () {
+
+//Route::middleware(['auth:api' , 'cors'])->group(function () {
     Route::resource('unite', UniteController::class);
+    Route::post('deleteunite/{id}', [UniteController::class, 'deleteUnite']);
     Route::post('updateu/{id}', [UniteController::class, 'updateU']);
     Route::resource('department', DepartmentController::class);
     Route::post('updated/{id}', [DepartmentController::class, 'updateD']);
@@ -22,8 +24,8 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api')
     Route::post('updatep/{id}', [ProductController::class, 'updateP']);
     Route::get('existingstores', [StoreController::class, 'existingStores']);
     Route::get('deletedstores', [StoreController::class, 'deletedStores']);
-    Route::post('allowaddstore/{id}', [StoreController::class, 'allowAddStore']);//notification and NO
-    Route::post('disallowaddstore/{id}', [StoreController::class, 'disallowAddStore']);//notification and NO
+    Route::post('allowaddstore/{id}', [StoreController::class, 'allowAddStore']);//notification
+    Route::post('disallowaddstore/{id}', [StoreController::class, 'disallowAddStore']);//notification
     Route::post('recoverystore/{id}', [StoreController::class, 'recoveryStore']);
     Route::Delete('deletestore/{id}', [StoreController::class, 'deleteStore']);
 //});

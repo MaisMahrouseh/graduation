@@ -48,7 +48,7 @@ class UniteController extends Controller
   }
 
   //Delete unite
-  public function destroy($id)
+  public function deleteUnite($id)
   {
      $unite =  $this->unite->find($id);
       if (!$unite)
