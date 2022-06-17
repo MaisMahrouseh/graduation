@@ -29,7 +29,7 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api')
     Route::post('allowaddstore/{id}', [StoreController::class, 'allowAddStore']);//notification
     Route::post('disallowaddstore/{id}', [StoreController::class, 'disallowAddStore']);//notification
     Route::post('recoverystore/{id}', [StoreController::class, 'recoveryStore']);
-    Route::Delete('deletestore/{id}', [StoreController::class, 'deleteStore']);
+    Route::post('deletestore/{id}', [StoreController::class, 'deleteStore']);
 //});
 
 
