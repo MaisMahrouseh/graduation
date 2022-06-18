@@ -54,7 +54,7 @@ class Product extends BaseModel
            ->select('A.id as product_id','A.name','A.image', 'B.name AS parent')
            ->whereNull('A.deleted_at')
            ->orderBy('parent')
-           ->paginate(6);
+           ->get();
     }
 
     public function updateProduct($request ,$id){

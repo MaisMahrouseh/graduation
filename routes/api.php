@@ -31,6 +31,7 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api')
     Route::post('recoverystore/{id}', [StoreController::class, 'recoveryStore']);
     Route::post('deletestore/{id}', [StoreController::class, 'deleteStore']);
 //});
+Route::get('mystoreproducts/{id}', [ProductController::class, 'myStoreProducts']);
 
 
 Route::middleware(['auth:api' , 'isUser'])->group(function () {
@@ -46,7 +47,6 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::Get('mydepartmentstore/{id}', [DepartmentController::class, 'myDepartmentStore']);
     Route::post('addstoreproduct', [StoreController::class, 'addStoreProduct']);
     Route::post('notexistproduct', [ProductController::class, 'notExistProduct']);//notification
-    Route::get('mystoreproducts/{id}', [ProductController::class, 'myStoreProducts']);
     Route::get('Deletemystoreproducts/{id}', [ProductController::class, 'deleteMyStoreProducts']);
     Route::post('editallprices', [ProductController::class, 'editAllPrices']);
 
