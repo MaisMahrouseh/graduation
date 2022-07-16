@@ -16,6 +16,7 @@ use App\Http\Requests\User\EditProfileRequest;
 use App\Http\Requests\User\SearchRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class ActivityController extends Controller
@@ -29,8 +30,8 @@ class ActivityController extends Controller
     {
         $this->favorite = $favorite;
         $this->rate = $rate;
-        $this->cart = $cart; 
-        $this->user = $user; 
+        $this->cart = $cart;
+        $this->user = $user;
         $this->userSearch = $userSearch;
     }
 
@@ -127,6 +128,14 @@ class ActivityController extends Controller
         return ResponseHelper::select($recent);
     }
 
+
+    public function usersInfo(){
+    $data = User::select("id","email","phone", DB::raw("CONCAT(users.firstname,' ',users.lastname) as full_name"))
+    ->get();
+        if(!$data)
+             return ResponseHelper::serverError();
+        return ResponseHelper::select($data);
+    }
 
 
 

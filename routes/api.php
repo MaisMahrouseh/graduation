@@ -31,6 +31,7 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api')
     Route::post('disallowaddstore/{id}', [StoreController::class, 'disallowAddStore']);//notification
     Route::post('recoverystore/{id}', [StoreController::class, 'recoveryStore']);
     Route::post('deletestore/{id}', [StoreController::class, 'deleteStore']);
+    Route::get('usersInfo', [ActivityController::class, 'usersInfo']);
     Route::get('favoritStores', [StatisticsController::class, 'favoritStores']);
     Route::get('userscount', [StatisticsController::class, 'usersCount']);
     Route::get('storescount', [StatisticsController::class, 'storesCount']);
