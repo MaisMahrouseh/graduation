@@ -8,6 +8,7 @@ use App\Http\Controllers\Store\StoreController;
 use App\Http\Controllers\User\ActivityController;
 use App\Http\Controllers\Store\SoldController;
 use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\StatisticsController;
 
 
 Route::post('login', [AuthController::class, 'login']);
@@ -30,8 +31,12 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api')
     Route::post('disallowaddstore/{id}', [StoreController::class, 'disallowAddStore']);//notification
     Route::post('recoverystore/{id}', [StoreController::class, 'recoveryStore']);
     Route::post('deletestore/{id}', [StoreController::class, 'deleteStore']);
+    Route::get('favoritStores', [StatisticsController::class, 'favoritStores']);
+    Route::get('userscount', [StatisticsController::class, 'usersCount']);
+    Route::get('storescount', [StatisticsController::class, 'storesCount']);
+
+
 //});
-Route::get('mystoreproducts/{id}', [ProductController::class, 'myStoreProducts']);
 
 
 Route::middleware(['auth:api' , 'isUser'])->group(function () {
@@ -49,6 +54,7 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::post('notexistproduct', [ProductController::class, 'notExistProduct']);//notification
     Route::get('Deletemystoreproducts/{id}', [ProductController::class, 'deleteMyStoreProducts']);
     Route::post('editallprices', [ProductController::class, 'editAllPrices']);
+    Route::get('mystoreproducts/{id}', [ProductController::class, 'myStoreProducts']);
 
     //edit store product
     //add update delete solds store

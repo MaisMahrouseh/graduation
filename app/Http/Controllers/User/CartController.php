@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\StoreProduct;
 use App\Http\Requests\Store\SortLocationRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
+use Illuminate\Support\Facades\DB;
+
 class CartController extends Controller
 {
     public $cart;
@@ -70,22 +72,25 @@ class CartController extends Controller
     }
 
     public function cheapestCart(){
-      //  $cheapes =  $this->cart->getUserCart();
-      //  $m = $cheapes->product_id;
+        $cheapes =  $this->cart->getUserCart();
+        $m = [1,2];
 
         //ضمن متاجر مختلفة
-      /*  $this->storeProduct->where('product_id',$id)
+    /*  $mmm =   $this->storeProduct->whereIn('product_id',$m)
         ->join('product_details', 'product_details.store_product_id', '=', 'store_products.id')
         ->join('stores', 'stores.id', '=', 'store_products.store_id')
-        ->select('price','stores.id','stores.name','stores.logo')
-        ->orderBy('price')
+        ->select('price','stores.id','stores.name','stores.logo',DB::raw('count(*) as total'))
+        ->groupBy('price')
         ->get();*/
 
-
+        $response = \DB::table('product_details')
+        ->select('store_product_id as List', \DB::raw('COUNT(store_product_id) as total_count'), 'store_product_id')
+        ->groupBy('store_product_id')
+        ->get();
 
 
         //if(!$cheapes)
         //  return ResponseHelper::serverError();
-        return ResponseHelper::select($m);
+        return ResponseHelper::select($response);
     }
 }
