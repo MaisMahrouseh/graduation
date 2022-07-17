@@ -73,25 +73,21 @@ class CartController extends Controller
     }
 
     public function cheapestCart(){
-        $cheapes =  $this->cart->getUserCart();
-        $m = [1,2];
+      /**
+       * SELECT stores.name , sum(product.price) as price
+       * from store_products
+       *  join product_details product
+       * on product.store_product_id = store_products.id
+       * left join stores
+       * on stores.id = store_products.store_id
+       * where store_products.product_id in (select carts.product_id from carts where carts.user_id = 2)
+       *  group by stores.id
+       * having sum(1) = ( SELECT max(z.v) from (select sum(1) as v from store_products join carts on carts.product_id = store_products.product_id where carts.user_id = 2 group by store_products.store_id) z )
+       */
 
-        //ضمن متاجر مختلفة
-    /*  $mmm =   $this->storeProduct->whereIn('product_id',$m)
-        ->join('product_details', 'product_details.store_product_id', '=', 'store_products.id')
-        ->join('stores', 'stores.id', '=', 'store_products.store_id')
-        ->select('price','stores.id','stores.name','stores.logo',DB::raw('count(*) as total'))
-        ->groupBy('price')
-        ->get();*/
-
-        $response = \DB::table('product_details')
-        ->select('store_product_id as List', \DB::raw('COUNT(store_product_id) as total_count'), 'store_product_id')
-        ->groupBy('store_product_id')
-        ->get();
+// ضمن متجر واحد
 
 
-        //if(!$cheapes)
-        //  return ResponseHelper::serverError();
         return ResponseHelper::select($response);
     }
 }

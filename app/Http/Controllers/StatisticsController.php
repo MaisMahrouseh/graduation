@@ -21,7 +21,7 @@ class StatisticsController extends Controller
         ->select(DB::raw('count(*) as count, store_id'),'stores.name')
         ->groupBy('store_id','name')
         ->orderBy('count','desc')
-        ->take(2)
+        ->take(10)
         ->get();
         if(!$data)
           return ResponseHelper::serverError();
