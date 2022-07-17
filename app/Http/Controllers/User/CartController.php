@@ -46,6 +46,7 @@ class CartController extends Controller
 
     //the store closest to the product
     public function closestProduct(SortLocationRequest  $request,$id){
+        $request->validated();
         $closest = $this->storeProduct->getClosestProduct($request,$id);
         if(!$closest)
           return ResponseHelper::serverError();
