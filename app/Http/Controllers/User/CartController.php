@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Store;
 use App\Models\StoreProduct;
 use App\Http\Requests\Store\SortLocationRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
@@ -84,10 +85,9 @@ class CartController extends Controller
        *  group by stores.id
        * having sum(1) = ( SELECT max(z.v) from (select sum(1) as v from store_products join carts on carts.product_id = store_products.product_id where carts.user_id = 2 group by store_products.store_id) z )
        */
+    
 
-// ضمن متجر واحد
-
-
-        return ResponseHelper::select($response);
+    $results = DB::table('users')->select('sum(1)')->get();
+        return ResponseHelper::select($results);
     }
 }

@@ -28,14 +28,14 @@ class StatisticsController extends Controller
         return ResponseHelper::select($data);
     }
     public function usersCount(){
-        $data =  User::count();
+        $data = DB::select('select COUNT(*)  as count FROM users;');
         if(!$data)
           return ResponseHelper::serverError();
         return ResponseHelper::select($data);
     }
 
     public function storesCount(){
-        $data =  Store::where('allow',1)->count();
+        $data =  DB::select('select COUNT(*)  as count FROM stores where allow=1;');
         if(!$data)
           return ResponseHelper::serverError();
         return ResponseHelper::select($data);
