@@ -11,7 +11,7 @@ class Product extends BaseModel
 {
     use HasFactory ,SoftDeletes, ModelTrait;
 
-    protected $fillable = ['id', 'name', 'image', 'product_id'];
+    protected $fillable = ['id', 'name', 'image', 'product_id','barcode'];
 
     public function carts()
     {
