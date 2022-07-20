@@ -30,7 +30,7 @@ class CartController extends Controller
     public function addTocart($id){
         $product =  $this->product->find($id);
         if (!$product)
-           return ResponseHelper::DataNotFound($message = "invalid product id");
+           return ResponseHelper::DataNotFound($message = "خطأ في معرّف المنتج");
         $created = $this->cart->create([
             'user_id' => auth()->user()->id,
             'product_id' => $id,

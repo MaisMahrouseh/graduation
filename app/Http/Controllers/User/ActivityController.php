@@ -95,7 +95,7 @@ class ActivityController extends Controller
         $request->validated();
         $olaPassword = $this->user->find(auth()->user()->id)->password;
         if (!Hash::check($request->oldPassword, $olaPassword)) {
-            return ResponseHelper::operationFail($message = "your password is incorrect");
+            return ResponseHelper::operationFail($message = "كلمة المرور القديمة غير صحيحة");
         }
         $update = $this->user->editPassword($request);
         if(!$update)

@@ -36,13 +36,13 @@ class StoreController extends Controller
         $created = $this->store->addStore($request);
         if (!$created)
             return ResponseHelper::creatingFail();
-        return ResponseHelper::operationSuccess($data = "Operation completed successfully, please wait for permission");
+        return ResponseHelper::operationSuccess($data = "تم بناء المتجر بنجاح, الرجاء الانتظار ليتم القبول او الرفض");
     }
 
     //allow to add store by admin
     public function allowAddStore($id){
         if (!$this->store->find($id))
-          return ResponseHelper::DataNotFound($message = 'Error in store id');
+          return ResponseHelper::DataNotFound($message = 'خطأ في معرّف المتجر');
         $update = $this->store->where('id',$id)->update([
             'allow' => 1,
         ]);;
@@ -54,7 +54,7 @@ class StoreController extends Controller
     //disallow to add store by admin
     public function disallowAddStore($id){
         if (!$this->store->find($id))
-          return ResponseHelper::DataNotFound($message = 'Error in store id');
+          return ResponseHelper::DataNotFound($message = 'خطأ في معرّف المتجر');
         $update = $this->store->where('id',$id)->update([
             'allow' => 0,
         ]);;
@@ -89,7 +89,7 @@ class StoreController extends Controller
     public function deleteStore($id){
         $storeId =  $this->store->find($id);
         if (!$storeId)
-          return ResponseHelper::DataNotFound($message = 'Error in store id');
+          return ResponseHelper::DataNotFound($message = 'خطأ في معرّف المتجر');
         $deleted = $storeId->delete();
         if (!$deleted)
            return ResponseHelper::deletingFail();
@@ -116,7 +116,7 @@ class StoreController extends Controller
     public function editDetailsStore(AddStoreRequest $request,$id){
         $userStoreId =  $this->userStore->select('user_id')->where('store_id',$id)->get();
         if(auth()->user()->id != $userStoreId->first()->user_id)
-           return ResponseHelper::operationFail($message = "You are not the owner of this store");
+           return ResponseHelper::operationFail($message = "انت لست مالك لهذا المتجر");
         $request->validated();
         $store = $this->store->find($id);
         if (!$store)
@@ -192,7 +192,7 @@ class StoreController extends Controller
     public function generalProductStores($id){
       $selectId = Product::find($id);
       if (!$selectId)
-          return ResponseHelper::DataNotFound($message = "invalid Product id");
+          return ResponseHelper::DataNotFound($message = "معرّف المنتج غير محقق");
       $products = $this->storeProduct->generalStores($id);
       if(!$products)
         return ResponseHelper::serverError();

@@ -80,7 +80,7 @@ class ProductController extends Controller
     $created = $this->adminProduct->createData($validated);
     if (!$created)
         return ResponseHelper::creatingFail();
-    return ResponseHelper::operationSuccess($data = "Operation completed successfully, please wait for permission");
+    return ResponseHelper::operationSuccess($data = " تمت العملية بنجاح, الرجاء الانتظار حتى يتم القبول او الرفض");
   }
 
   //search product
@@ -97,7 +97,7 @@ class ProductController extends Controller
   public function myStoreProducts($id){
     $selectId = $this->store->find($id);
     if (!$selectId)
-        return ResponseHelper::DataNotFound($message = "invalid store id");
+        return ResponseHelper::DataNotFound($message = "المعرّف غير موجود");
     $selected = $this->storeProduct->getProducts($id);
     if ($selected == null)
         return ResponseHelper::serverError();
@@ -107,7 +107,7 @@ class ProductController extends Controller
   public function deleteMyStoreProducts($id){
     $product =  $this->storeProduct->find($id);
     if (!$product)
-      return ResponseHelper::DataNotFound($message = "invalid id");
+      return ResponseHelper::DataNotFound($message = "المعرّف غير موجود");
     $deleted = $product->delete();
     if (!$deleted)
        return ResponseHelper::deletingFail();
@@ -127,7 +127,7 @@ class ProductController extends Controller
         $item->price = $item->price * $percent;
         $item->save();
        }
-       return ResponseHelper::operationSuccess($data = "Operation completed successfully");
+       return ResponseHelper::operationSuccess($data = "تمت اكتمال العملية بنجاح");
   }
 
   //Get all the products of a specific department for a specific store
