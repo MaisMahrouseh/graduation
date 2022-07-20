@@ -43,7 +43,7 @@ class Product extends BaseModel
             $created = $this->create([
                 'name' => $request->name,
                 'image' => $picturename,
-                'barcode' => $barcode,
+                'barcode' => $request->barcode,
                 'product_id' => $request->product_id,
             ]);}
             return $created;
@@ -67,7 +67,7 @@ class Product extends BaseModel
             $updated = $this->where('id',$id)->update([
                 'name' => $request->name,
                 'image' => $picturename,
-                'barcode' => $barcode,
+                'barcode' => $request->barcode,
                 'product_id' => $request->product_id,
             ]);}
             return $updated;
