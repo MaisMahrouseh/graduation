@@ -19,4 +19,11 @@ class DepartmentRequest extends FormRequest
             'name' =>['required','string', Rule::unique('departments')->ignore($this->department)->whereNull('deleted_at')]
                 ];
     }
+    public function messages()
+    {
+       return [
+        'name.required' => 'الاسم مطلوب',
+        'name.string' => 'يجب ان يكون الاسم سلسلة نصية',
+       ];
+    }
 }

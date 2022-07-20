@@ -21,7 +21,8 @@ class FavoriteRequest extends FormRequest
     public function messages()
     {
        return [
-        'store_id.exists' => 'Not an existing store ID',
+        'store_id.required' => 'معرّف المتجر مطلوب',
+        'store_id.exists' => 'معرّف المتجر هذا غير موجود',
        ];
     }
 }

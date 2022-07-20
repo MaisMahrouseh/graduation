@@ -19,4 +19,11 @@ class LoginRequet extends FormRequest
             'password' =>['required'],
         ];
     }
+    public function messages()
+    {
+       return [
+        'email.email' => 'يجب ان يكون الحقل من نوع ايميل',
+        'password.required' => 'كلمة المرور مطلوبة',
+       ];
+    }
 }

@@ -24,4 +24,18 @@ class RegisterRequet extends BaseFormRequest
             'phone' => ['nullable', 'string'],
         ];
     }
+    public function messages()
+    {
+       return [
+        'firstname.required' => 'الاسم الاول مطلوب',
+        'firstname.string' => 'يجب ان يكون الاسم الاول سلسلة نصية',
+        'lastname.required' => 'الاسم الثاني مطلوب',
+        'lastname.string' => 'يجب ان يكون الاسم الثاني سلسلة نصية',
+        'email.required' => ' الايميل  مطلوب وفريد',
+        'password.required' => ' كلمة المرور مطلوبة',
+        'password.min' => 'كلمة المرور يجب ان تكون مكونة من 6 محارف كحد أدنى',
+
+
+       ];
+    }
 }

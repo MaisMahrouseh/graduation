@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class SearchRequest extends FormRequest
 {
-  
+
     protected $stopOnFirstFailure = true;
 
     public function authorize()
@@ -23,6 +23,7 @@ class SearchRequest extends FormRequest
     {
        return [
         'text.required' => 'الرجاء ادخال نص البحث المطلوب',
+        'text.string' => 'يجب ان يكون النص سسلسة نصية',
        ];
     }
 }

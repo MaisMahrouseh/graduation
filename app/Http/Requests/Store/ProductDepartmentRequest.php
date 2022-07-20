@@ -22,8 +22,10 @@ class ProductDepartmentRequest extends FormRequest
     public function messages()
     {
        return [
-        'store_id.exists' => 'Not an existing store ID',
-        'department_id.exists' => 'Not an existing department ID',
+        'store_id.required' => 'معرّف المتجر مطلوب',
+        'store_id.exists' => 'معرّف المتجر هذا غير موجود',
+        'department_id.required' => 'معرّف القسم مطلوب',
+        'department_id.exists' => 'معرّف القسم هذا غير موجود',
        ];
     }
 }

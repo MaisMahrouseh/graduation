@@ -19,4 +19,13 @@ class NotExistProductRequest extends FormRequest
             'image' =>['required' , 'image'],
         ];
     }
+    public function messages()
+    {
+       return [
+        'text.required' => 'الاسم مطلوب',
+        'text.string' => 'يجب ان يكون الاسم سلسلة نصية',
+        'image.required' => 'الصورة مطلوبة',
+        'image.image' => 'يجب ان يكون الحقل من نوع صورة',
+       ];
+    }
 }

@@ -21,5 +21,20 @@ class AddStoreRequest extends FormRequest
             'locationX' =>['required', 'numeric'],
             'locationY' =>['required', 'numeric'],
         ];
+
+    }
+    public function messages()
+    {
+       return [
+        'name.required' => 'الاسم مطلوب',
+        'name.string' => 'يجب ان يكون الاسم سلسلة نصية',
+        'logo.required' => 'الصورة مطلوبة',
+        'logo.image' => 'يجب ان يكون الحقل من نوع صورة',
+        'phone.required' => 'الرقم مطلوب',
+        'locationX.required' => 'الاحداثيات مطلوبة',
+        'locationX.numeric' => 'يجب ان تكون الاحداثيات عدد بفاصلة',
+        'locationY.required' => 'الاحداثيات مطلوبة',
+        'locationY.numeric' => 'يجب ان تكون الاحداثيات عدد بفاصلة',
+       ];
     }
 }

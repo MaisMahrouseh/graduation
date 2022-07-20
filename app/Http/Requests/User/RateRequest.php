@@ -23,7 +23,10 @@ class RateRequest extends FormRequest
     public function messages()
     {
        return [
-        'store_id.exists' => 'Not an existing store ID',
+        'store_id.required' => 'معرّف المتجر مطلوب',
+        'store_id.exists' => 'معرّف المتجر هذا غير موجود',
+        'rate.required' => 'حقل التقييم مطلوب',
+        'rate.numeric' => 'يجب ان يكون التقيم رقم بين 0 و 5',
        ];
     }
 }

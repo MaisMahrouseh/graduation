@@ -22,4 +22,15 @@ class EditProfileRequest extends FormRequest
             'phone' => ['required', 'string'],
         ];
     }
+    public function messages()
+    {
+       return [
+        'firstname.required' => 'الاسم الاول مطلوب',
+        'firstname.string' => 'يجب ان يكون الاسم الاول سلسلة نصية',
+        'lastname.required' => 'الاسم الثاني مطلوب',
+        'lastname.string' => 'يجب ان يكون الاسم الثاني سلسلة نصية',
+        'email.required' => ' الايميل  مطلوب وفريد',
+        'phone.required' => 'رقم الموبايل  مطلوب',
+       ];
+    }
 }

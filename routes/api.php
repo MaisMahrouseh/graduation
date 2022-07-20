@@ -92,8 +92,8 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::get('getcart', [CartController::class, 'getCart']);
     Route::Delete('removefromcart/{id}', [CartController::class, 'removeFromCart']);
     Route::post('cheapestcart', [CartController::class, 'cheapestCart']);
-    Route::post('detailsResultCart', [CartController::class, 'detailsResultCart']);//no
-    Route::post('nearestCart', [CartController::class, 'nearestCart']);//no
+    Route::post('detailsResultCart', [CartController::class, 'detailsResultCart']);
+    Route::post('nearestCart', [CartController::class, 'nearestCart']);
 
 
 

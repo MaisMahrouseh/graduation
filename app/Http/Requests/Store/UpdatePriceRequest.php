@@ -18,4 +18,14 @@ class UpdatePriceRequest extends FormRequest
             'percent' => 'required|integer|between:0,100'
         ];
     }
+    public function messages()
+    {
+       return [
+        'store_id.required' => 'معرف المتجر مطلوب',
+        'store_id.exists' => 'معرّف المتجر هذا غير موجود',
+        'percent.required' => 'النسبة مطلوبة',
+        'percent.integer' => 'يجب ان تكون النسبة عدد صحيح بين 0 و 100',
+
+       ];
+    }
 }
