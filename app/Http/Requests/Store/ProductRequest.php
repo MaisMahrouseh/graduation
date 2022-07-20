@@ -19,7 +19,7 @@ class ProductRequest extends FormRequest
             'name' => ['required', 'string'],
             'image' =>['required' , 'image'],
             'product_id' =>'nullable|exists:products,id',
-            'barcode'=>['nullable', 'string',Rule::unique('products')->ignore($this->product)->whereNull('deleted_at')],
+            'barcode'=>['required', 'string',Rule::unique('products')->ignore($this->product)->whereNull('deleted_at')],
         ];
 
     }
