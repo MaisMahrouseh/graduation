@@ -43,6 +43,7 @@ class Product extends BaseModel
             $created = $this->create([
                 'name' => $request->name,
                 'image' => $picturename,
+                'barcode' => $barcode,
                 'product_id' => $request->product_id,
             ]);}
             return $created;
@@ -51,7 +52,7 @@ class Product extends BaseModel
     public function getProduct(){
     return DB::table('products as A')
            ->leftJoin('products as B', 'A.product_id', '=', 'B.id')
-           ->select('A.id as product_id','A.name','A.image', 'B.name AS parent')
+           ->select('A.id as product_id','A.name','A.image','A.barcode', 'B.name AS parent')
            ->whereNull('A.deleted_at')
            ->orderBy('parent')
            ->get();
@@ -66,6 +67,7 @@ class Product extends BaseModel
             $updated = $this->where('id',$id)->update([
                 'name' => $request->name,
                 'image' => $picturename,
+                'barcode' => $barcode,
                 'product_id' => $request->product_id,
             ]);}
             return $updated;

@@ -86,7 +86,7 @@ class ProductController extends Controller
   //search product
   public function search(SearchRequest $request){
     $request->validated();
-    $data = $this->product->select('id','name','image')
+    $data = $this->product->select('id','name','image','barcode')
                  ->where("name","LIKE","%{$request->text}%")
                  ->get();
      return ResponseHelper::select($data);

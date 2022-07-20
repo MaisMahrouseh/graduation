@@ -17,6 +17,7 @@ class NotExistProductRequest extends FormRequest
         return [
             'text' => ['required', 'string'],
             'image' =>['required' , 'image'],
+            'barcode' =>['nullable' , 'string'],
         ];
     }
     public function messages()
@@ -26,6 +27,7 @@ class NotExistProductRequest extends FormRequest
         'text.string' => 'يجب ان يكون الاسم سلسلة نصية',
         'image.required' => 'الصورة مطلوبة',
         'image.image' => 'يجب ان يكون الحقل من نوع صورة',
+        'barcode.string' => 'يجب ان يكون الباركود سلسلة نصية',
        ];
     }
 }

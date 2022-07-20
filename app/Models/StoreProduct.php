@@ -68,7 +68,7 @@ class StoreProduct extends BaseModel
         $data =  $this->select('id','store_id', 'department_id', 'product_id')
         ->where('store_id',$id)
         ->with(['product' => function($q){
-            $q ->select('id','name','image');}])
+            $q ->select('id','name','image','barcode');}])
         ->with(['department' => function($q){
              $q ->select('name','id');}])
         ->with(['productdetails' => function($q){
@@ -89,7 +89,7 @@ class StoreProduct extends BaseModel
                     ->where('department_id', $id)
                     ->distinct()
                     ->get();
-        return Product::select('id','name')->whereIn('id',$data)->get();
+        return Product::select('id','name','image','barcode')->whereIn('id',$data)->get();
     }
 
     public function generalStores($id){

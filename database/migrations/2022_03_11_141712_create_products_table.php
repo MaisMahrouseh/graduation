@@ -13,6 +13,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
+            $table->string('barcode')->nullable()->unique();
             $table->timestamps();
             $table->softDeletes();
         });
