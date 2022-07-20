@@ -4,11 +4,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kouja\ProjectAssistant\Bases\BaseModel;
 use Kouja\ProjectAssistant\Traits\ModelTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cart extends BaseModel
 {
-    use HasFactory ,SoftDeletes, ModelTrait;
+    use HasFactory , ModelTrait;
 
     protected $fillable = ['id', 'user_id', 'product_id'];
 
