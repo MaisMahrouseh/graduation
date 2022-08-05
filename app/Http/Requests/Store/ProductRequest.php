@@ -33,6 +33,8 @@ class ProductRequest extends FormRequest
         'product_id.exists' => 'معرّف المنتج هذا غير موجود',
         'barcode.required' => 'الباركود مطلوب',
         'barcode.string' => 'يجب ان يكون الباركود سلسلة نصية',
+        'barcode.unique' => 'هذا المنتج موجود من قبل',
+
        ];
     }
 }
