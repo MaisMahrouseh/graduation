@@ -54,7 +54,7 @@ class Product extends BaseModel
            ->leftJoin('products as B', 'A.product_id', '=', 'B.id')
            ->select('A.id as product_id','A.name','A.image','A.barcode', 'B.name AS parent')
            ->whereNull('A.deleted_at')
-           ->orderBy('parent')
+           ->orderBy('product_id')
            ->get();
     }
 
