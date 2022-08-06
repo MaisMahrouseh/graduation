@@ -15,9 +15,17 @@ class AddStoreDepartmentseRequest extends FormRequest
     public function rules()
     {
         return [
-            'departments' => ['required','array','min:1'],
-            'departments.*' => 'required|integer|exists:departments,id',
+            'department_id' =>'required|integer|exists:stores,id',
             'store_id' => 'required|integer|exists:stores,id',
         ];
+    }
+    public function messages()
+    {
+       return [
+        'store_id.required' => 'معرّف المتجر مطلوب',
+        'store_id.exists' => 'معرّف المتجر هذا غير موجود',
+        'department_id.required' => 'معرّف القسم مطلوب',
+        'department_id.exists' => 'معرّف القسم هذا غير موجود',
+       ];
     }
 }

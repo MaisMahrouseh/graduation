@@ -23,13 +23,10 @@ class StoreDepartment extends BaseModel
     }
 
    public function createStoreDepartments($request){
-        $departments = $request->departments;
-        foreach($departments as $department){
         $this->create([
-               'department_id' => $department,
+               'department_id' => $request->department_id,
                'store_id' => $request->store_id,
            ]);
-       }
        return true;
    }
 
