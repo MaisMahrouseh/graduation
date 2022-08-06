@@ -80,7 +80,6 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::Get('alldepartment', [DepartmentController::class, 'index']);
     Route::get('generaldepartmentproducts/{id}', [DepartmentController::class, 'generalDepartmentProducts']);
     Route::get('generalproductstores/{id}', [StoreController::class, 'generalProductStores']);
-    Route::get('allsolds', [SoldController::class, 'allSolds']);
 
     Route::post('storingsearchruser', [ActivityController::class, 'storingSearchUser']);
     Route::get('Recentsearchresults', [ActivityController::class, 'recentSearchResults']);
@@ -104,3 +103,4 @@ Route::get('migrate', function(){
     Artisan::call("passport:install");
     Artisan::call("migrate --path=database/migrations/ForeignKeys");
 });
+Route::get('allsolds', [SoldController::class, 'allSolds']);

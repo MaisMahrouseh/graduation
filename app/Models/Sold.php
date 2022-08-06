@@ -26,7 +26,8 @@ class Sold extends BaseModel
                ->join('stores', 'stores.id', '=', 'store_products.store_id')
                ->join('products', 'products.id', '=', 'store_products.product_id')
                ->select('products.name as product_name','products.image as product_image','stores.name as store_name',
-                       'product_details.price as old_price','new_price','start_date', 'end_date', )     
+                       'product_details.price as old_price','new_price','start_date', 'end_date', )
+               ->whereNotNull('start_date')
         ->get();
 
     }
