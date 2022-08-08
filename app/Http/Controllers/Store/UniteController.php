@@ -36,12 +36,10 @@ class UniteController extends Controller
   }
 
  //Edit unite
- public function updateu(UniteRequest $request, $id){
+ public function updateu(UniteRequest $request){
     $validated = $request->validated();
-    $unite = $this->unite->find($id);
-    if (!$unite)
-       return ResponseHelper::DataNotFound();
-    $updated = $this->unite->where('id',$id)->update($validated);
+
+    $updated = $this->unite->where('id', $request->id)->update($request->name);
     if(!$updated)
        return ResponseHelper::updatingFail();
     return ResponseHelper::update($updated);

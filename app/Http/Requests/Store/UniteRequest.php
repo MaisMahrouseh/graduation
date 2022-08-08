@@ -16,7 +16,8 @@ class UniteRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' =>['required','string', Rule::unique('unites')->ignore($this->unite)->whereNull('deleted_at')]
+            'name' =>['required','string', Rule::unique('unites')->ignore($this->unite)->whereNull('deleted_at')],
+            'id' =>'required'
         ];
     }
     public function messages()
