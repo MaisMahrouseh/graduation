@@ -18,7 +18,7 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api')
 //Route::middleware(['auth:api' , 'cors'])->group(function () {
     Route::resource('unite', UniteController::class);
     Route::post('deleteunite/{id}', [UniteController::class, 'deleteUnite']);
-    Route::post('updateu', [UniteController::class, 'updateU']);
+    Route::post('updateu/{id}', [UniteController::class, 'updateU']);
     Route::resource('department', DepartmentController::class);
     Route::post('deletedepartment/{id}', [DepartmentController::class, 'deeleteDepartment']);
     Route::post('updated/{id}', [DepartmentController::class, 'updateD']);
