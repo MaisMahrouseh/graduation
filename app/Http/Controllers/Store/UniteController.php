@@ -39,7 +39,9 @@ class UniteController extends Controller
  public function updateu(UniteRequest $request){
     $validated = $request->validated();
 
-    $updated = $this->unite->where('id', $request->id)->update($request->name);
+    $updated = $this->unite->where('id', $request->id)->update([
+        'name' => $request->name,
+    ]);;
     if(!$updated)
        return ResponseHelper::updatingFail();
     return ResponseHelper::update($updated);
