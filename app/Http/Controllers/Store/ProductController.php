@@ -76,11 +76,18 @@ class ProductController extends Controller
 
   //Suggestion to add a product that does not exist
   public function notExistProduct(NotExistProductRequest $request){
-    $validated = $request->validated();
-    $created = $this->adminProduct->createData($validated);
+     $request->validated();
+    $created = $this->adminProduct->addproduct($request);
     if (!$created)
         return ResponseHelper::creatingFail();
     return ResponseHelper::operationSuccess($data = " تمت العملية بنجاح, الرجاء الانتظار حتى يتم القبول او الرفض");
+  }
+
+  public function getAdminProducts(){
+    $products = $this->adminProduct->select('id','text','image','created_at as add_date')->get();
+    if(!$products)
+      return ResponseHelper::serverError();
+    return ResponseHelper::select($products);
   }
 
   //search product

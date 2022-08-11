@@ -25,6 +25,7 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api')
     Route::resource('product', ProductController::class);
     Route::post('deleteproduct/{id}', [ProductController::class,'deleteProduct']);
     Route::post('updatep/{id}', [ProductController::class, 'updateP']);
+    Route::post('getadminproduct', [ProductController::class,'getAdminProducts']);
     Route::get('existingstores', [StoreController::class, 'existingStores']);
     Route::get('deletedstores', [StoreController::class, 'deletedStores']);
     Route::post('allowaddstore/{id}', [StoreController::class, 'allowAddStore']);//notification

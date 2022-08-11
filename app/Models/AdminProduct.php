@@ -13,5 +13,17 @@ class AdminProduct extends BaseModel
     protected $fillable = ['id','text','image'];
 
 
+    public function addproduct($request){
+        $picture = $request->file('image');
+        if($request->hasFile('image')){
+            $picturename = rand().'.'.$picture->getClientOriginalExtension();
+            $picture->move(public_path('images/suggestionProducts'),$picturename);
+            $picturename = 'https://mais-api.preneom.com/public/images/ProductImages/'.(string)$picturename;
+            $created = $this->create([
+                'text' => $request->text,
+                'image' => $picturename,
+            ]);}
+            return $created;
+    }
 
 }
