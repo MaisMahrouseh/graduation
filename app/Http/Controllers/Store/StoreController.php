@@ -65,7 +65,7 @@ class StoreController extends Controller
 
     //get existing stores for admin
     public function existingStores(){
-        $stores =  $this->userStore->getExistingStores()->whereNull('delet date');
+        $stores =  $this->userStore->getExistingStores()->whereNull('delet_date');
         if(!$stores)
           return ResponseHelper::serverError();
         return ResponseHelper::select($stores);
@@ -73,7 +73,7 @@ class StoreController extends Controller
 
     //get deleted stores for admin
     public function deletedStores(){
-        $stores =  $this->userStore->getExistingStores()->whereNotNull('delet date');
+        $stores =  $this->userStore->getExistingStores()->whereNotNull('delet_date');
         if(!$stores)
           return ResponseHelper::serverError();
         return ResponseHelper::select($stores);
