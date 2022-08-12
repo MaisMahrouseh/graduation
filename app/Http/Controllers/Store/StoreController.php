@@ -190,18 +190,10 @@ class StoreController extends Controller
 
     //Sort stores according to the highest rating
     public function sortStoresRate(){
-        $stores = $this->store->select('id', 'name', 'logo','locationX','locationY')
-        ->where('allow',1)
-
-        ->get();
-
-        $storesss =  collect($stores)->each(function ($store) {
-        $store['rate'] = collect($store['rates'])->avg('rate')->orderBy('rate','desc');
-        unset($store['rates']);
-       });
-        if(!$storesss)
+        $stores =  $this->store->getStores()->sortByDesc('rate')->values()->all();
+        if(!$stores)
           return ResponseHelper::serverError();
-        return ResponseHelper::select($storesss);
+        return ResponseHelper::select($stores);
     }
 
     //Get لeneral stores containing this product
