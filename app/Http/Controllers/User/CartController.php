@@ -39,6 +39,7 @@ class CartController extends Controller
             ]);
             return ResponseHelper::operationSuccess();
         }
+        return ResponseHelper::operationSuccess();
     }
     //the lowest price for the product
     public function cheapestProduct($id){
