@@ -24,7 +24,8 @@ class Cart extends BaseModel
     public function getUserCart(){
         return $this->where('user_id',auth()->user()->id)
                     ->join('products', 'carts.product_id', '=', 'products.id')
-                    ->select('carts.id as cart_id','name','image','products.id as product_id')
+                    ->select('carts.id as cart_id','name','image','products.id as product_id' ,'carts.deleted_at')
+                    ->whereNull('carts.deleted_at')
                     ->get();
     }
 

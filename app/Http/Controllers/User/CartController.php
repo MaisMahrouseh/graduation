@@ -31,13 +31,14 @@ class CartController extends Controller
         $product =  $this->product->find($id);
         if (!$product)
            return ResponseHelper::DataNotFound($message = "خطأ في معرّف المنتج");
-        $created = $this->cart->create([
-            'user_id' => auth()->user()->id,
-            'product_id' => $id,
-        ]);
-        if(!$created)
-             return ResponseHelper::creatingFail();
-        return ResponseHelper::create($created);
+        $pro = $this->cart->select('product_id')->where('user_id',auth()->user()->id)->where('product_id',$id)->whereNull('deleted_at')->get();
+        if($pro->isEmpty()){
+            $this->cart->create([
+                'user_id' => auth()->user()->id,
+                'product_id' => $id,
+            ]);
+            return ResponseHelper::operationSuccess();
+        }
     }
     //the lowest price for the product
     public function cheapestProduct($id){
