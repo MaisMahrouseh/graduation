@@ -58,10 +58,8 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     Route::get('Deletemystoreproducts/{id}', [ProductController::class, 'deleteMyStoreProducts']);
     Route::post('editallprices', [ProductController::class, 'editAllPrices']);
     Route::get('mystoreproducts/{id}', [ProductController::class, 'myStoreProducts']);
-
     //edit store product
     //add update delete solds store
-
     Route::get('allstores', [StoreController::class, 'getAllStores']);
     Route::get('sortstorename', [StoreController::class, 'sortStoresName']);
     Route::get('sortstorerate', [StoreController::class, 'sortStoresRate']);
