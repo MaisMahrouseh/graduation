@@ -17,6 +17,7 @@ class LoginRequet extends FormRequest
         return [
             'email' =>['nullable','email'],
             'password' =>['required'],
+            'phone' => ['nullable', 'string'],
         ];
     }
     public function messages()
