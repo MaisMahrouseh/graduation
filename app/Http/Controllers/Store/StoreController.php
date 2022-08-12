@@ -174,10 +174,18 @@ class StoreController extends Controller
 
     //Sort stores by alphabet
     public function sortStoresName(){
-        $stores = clone $this->store->getStores()->sortBy('name');
-        if(!$stores)
+        $stores = $this->store->select('id', 'name', 'logo','locationX','locationY')
+        ->where('allow',1)
+        ->orderBy('name')
+        ->get();
+
+        $storesss =  collect($stores)->each(function ($store) {
+        $store['rate'] = collect($store['rates'])->avg('rate');
+        unset($store['rates']);
+       });
+        if(!$storesss)
           return ResponseHelper::serverError();
-        return ResponseHelper::select($stores);
+        return ResponseHelper::select($storesss);
     }
 
     //Sort stores according to the highest rating
