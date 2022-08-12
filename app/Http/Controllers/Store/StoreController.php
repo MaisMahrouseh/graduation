@@ -192,13 +192,13 @@ class StoreController extends Controller
     public function sortStoresRate(){
         $stores = $this->store->select('id', 'name', 'logo','locationX','locationY')
         ->where('allow',1)
-        ->orderBy('rate','desc')
         ->get();
 
         $storesss =  collect($stores)->each(function ($store) {
         $store['rate'] = collect($store['rates'])->avg('rate');
         unset($store['rates']);
-       });
+       })
+       ->orderBy('rate','desc');
         if(!$storesss)
           return ResponseHelper::serverError();
         return ResponseHelper::select($storesss);
