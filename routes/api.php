@@ -62,8 +62,6 @@ Route::middleware(['auth:api' , 'isUser'])->group(function () {
     //add update delete solds store
     Route::get('allstores', [StoreController::class, 'getAllStores']);
     Route::get('sortstorename', [StoreController::class, 'sortStoresName']);
-
-
     Route::post('sortstorelocation', [StoreController::class, 'sortStoresLocation']);
     Route::get('astore/{id}', [StoreController::class, 'getStore']);
     //Route::post('storedepartmentproducts', [ProductController::class, 'storeDepartmentProducts']); // NO
@@ -104,4 +102,3 @@ Route::get('migrate', function(){
     Artisan::call("passport:install");
     Artisan::call("migrate --path=database/migrations/ForeignKeys");
 });
-Route::get('sortstorerate', [StoreController::class, 'sortStoresRate']);
