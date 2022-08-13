@@ -37,7 +37,8 @@ class UserStore extends BaseModel
                 ->join('users', 'users.id', '=', 'user_stores.user_id')
                 ->select('stores.id as store_id','stores.name','stores.logo','stores.phone',
                 'stores.created_at  as date_join','stores.allow','users.id as user_id','stores.deleted_at as delet_date')
-                ->orderBy('allow')
+                ->whereNull('stores.deleted_at')
+                ->orderBy('store_id')
                 ->get();
      }
 
