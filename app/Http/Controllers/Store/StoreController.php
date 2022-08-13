@@ -78,8 +78,8 @@ class StoreController extends Controller
         ->join('users', 'users.id', '=', 'user_stores.user_id')
         ->select('stores.id as store_id','stores.name','stores.logo','stores.phone',
         'stores.created_at  as date_join','stores.allow','users.id as user_id','stores.deleted_at as delet_date')
-        ->whereNotNull('stores.deleted_at ')
-        ->orderBy('store_id')
+        ->whereNotNull('stores.deleted_at')
+        ->orderBy('store_id','desc')
         ->get();
         if(!$stores)
           return ResponseHelper::serverError();
