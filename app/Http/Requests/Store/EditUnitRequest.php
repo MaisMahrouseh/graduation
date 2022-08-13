@@ -5,7 +5,7 @@ namespace App\Http\Requests\Store;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UniteRequest extends FormRequest
+class EditUnitRequest extends FormRequest
 {
     protected $stopOnFirstFailure = true;
 
