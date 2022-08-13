@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Unite;
 use App\Http\Requests\Store\UniteRequest;
+use App\Http\Requests\Store\EditUnitRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
 
 class UniteController extends Controller
@@ -59,4 +60,14 @@ class UniteController extends Controller
        return ResponseHelper::delete();
   }
 
+
+  public function editUnite(EditUnitRequest $request){
+    $request->validated();
+    $updated = $this->unite->where('id',$request->id)->update([
+        'name' => $request->name,
+    ]);
+    if(!$updated)
+       return ResponseHelper::updatingFail();
+    return ResponseHelper::update($updated);
+  }
 }
