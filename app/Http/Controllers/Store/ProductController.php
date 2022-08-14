@@ -81,7 +81,7 @@ class ProductController extends Controller
        $picturename = rand().'.'.$picture->getClientOriginalExtension();
        $picture->move(public_path('images/ProductImages'),$picturename);
        $picturename = 'https://mais-api.preneom.com/public/images/ProductImages/'.(string)$picturename;
-       $updated = $this->where('id',$id)->update([
+       $updated = $this->product->where('id',$id)->update([
               'name' => $request->name,
                'image' => $picturename,
                'barcode' => $request->barcode,
