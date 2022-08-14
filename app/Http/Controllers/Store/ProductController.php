@@ -15,6 +15,7 @@ use App\Http\Requests\Store\NotExistProductRequest;
 use App\Http\Requests\Store\ProductDepartmentRequest;
 use App\Http\Requests\Store\UpdatePriceRequest;
 use Kouja\ProjectAssistant\Helpers\ResponseHelper;
+use App\Http\Requests\Store\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -63,15 +64,30 @@ class ProductController extends Controller
   }
 
   //Edit product
-  public function updateP(ProductRequest $request, $id){
+  public function updateP(UpdateProductRequest $request, $id){
     $request->validated();
-    $product = $this->product->find($id);
-    if (!$product)
-        return ResponseHelper::DataNotFound();
-   $updated = $this->product->updateProduct($request ,$id);
-   if(!$updated)
-       return ResponseHelper::updatingFail();
+    if(!$request->hasFile('image')){
+    $picture = $this->product->select('image')->where('id',$id)->first();
+    $updated = $this->product->where('id',$id)->update([
+        'name' => $request->name,
+        'image' => $picture->image,
+        'barcode' => $request->barcode,
+        'product_id' => $request->product_id,
+    ]);
     return ResponseHelper::update($updated);
+  }
+    $picture = $request->file('image');
+    if($request->hasFile('image')){
+       $picturename = rand().'.'.$picture->getClientOriginalExtension();
+       $picture->move(public_path('images/ProductImages'),$picturename);
+       $picturename = 'https://mais-api.preneom.com/public/images/ProductImages/'.(string)$picturename;
+       $updated = $this->where('id',$id)->update([
+              'name' => $request->name,
+               'image' => $picturename,
+               'barcode' => $request->barcode,
+            'product_id' => $request->product_id,
+        ]);}
+     return ResponseHelper::update($updated);
   }
 
   //Suggestion to add a product that does not exist

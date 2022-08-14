@@ -58,18 +58,4 @@ class Product extends BaseModel
            ->get();
     }
 
-    public function updateProduct($request ,$id){
-        $picture = $request->file('image');
-        if($request->hasFile('image')){
-            $picturename = rand().'.'.$picture->getClientOriginalExtension();
-            $picture->move(public_path('images/ProductImages'),$picturename);
-            $picturename = 'https://mais-api.preneom.com/public/images/ProductImages/'.(string)$picturename;
-            $updated = $this->where('id',$id)->update([
-                'name' => $request->name,
-                'image' => $picturename,
-                'barcode' => $request->barcode,
-                'product_id' => $request->product_id,
-            ]);}
-            return $updated;
-    }
 }
