@@ -103,8 +103,8 @@ class CartController extends Controller
         $request->validated();
         $results = DB::table('store_products')
         ->join('product_details', 'product_details.store_product_id', '=', 'store_products.id')
-        ->leftJoin('products', 'store_products.product_id', '=', 'products.id','products.image')
-        ->select('products.id as product_id', 'products.name as product_name','products.barcode','product_details.price as price')
+        ->leftJoin('products', 'store_products.product_id', '=', 'products.id')
+        ->select('products.id as product_id', 'products.name as product_name','products.barcode','product_details.price as price','products.image')
         ->where('store_products.store_id',$request->store_id)
         ->whereIn('store_products.product_id',function($query)
         {
